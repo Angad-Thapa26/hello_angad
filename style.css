@@ -478,7 +478,6 @@ nav ul li a:hover {
 
 .project-details-section {
     margin-top: 30px;
-    font-size: 1.3em;
 }
 
 .project-details-section h4 {
@@ -520,4 +519,14 @@ nav ul li a:hover {
 
 .project-photo:hover {
     transform: scale(1.02);
+} 
+
+.email-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.email-link:hover {
+    color: #00cc00;
+    text-decoration: underline;
 } 
