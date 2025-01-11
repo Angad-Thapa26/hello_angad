@@ -450,3 +450,55 @@ nav ul li a:hover {
         grid-template-columns: 1fr;
     }
 } 
+/* Project Details Page */
+#project-details {
+    padding-top: 100px;
+}
+
+.project-details-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3 {
+    color: var(--primary-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.project-description {
+    color: #fff;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.project-details-section {
+    margin-top: 30px;
+}
+
+.project-details-section h4 {
+    color: var(--primary-color);
+    margin: 20px 0 10px 0;
+}
+
+.project-details-section ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.project-details-section ul li {
+    color: #fff;
+    margin: 5px 0;
+    position: relative;
+}
+
+.project-details-section ul li:before {
+    content: '>';
+    color: var(--primary-color);
+    position: absolute;
+    left: -20px;
+}
