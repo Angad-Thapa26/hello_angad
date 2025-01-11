@@ -399,3 +399,48 @@ nav ul li a:hover {
 .shooting_star:nth-child(3) { top: 10%; left: 45%; animation-delay: 1.6s; }
 .shooting_star:nth-child(4) { top: 20%; left: 55%; animation-delay: 2.4s; }
 .shooting_star:nth-child(5) { top: 30%; left: 35%; animation-delay: 3.2s; } 
+
+/* Hobbies Section */
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.hobby-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hobby-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+}
+
+.hobby-icon {
+    font-size: 2.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.hobby-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.hobby-content p {
+    color: var(--text-color);
+    font-size: 0.9em;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .hobbies-grid {
+        grid-template-columns: 1fr;
+    }
+} 
