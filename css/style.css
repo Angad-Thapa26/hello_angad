@@ -281,6 +281,12 @@ nav ul li a:hover {
     background: #00cc00;
 }
 
+.submit-btn:disabled {
+    background: #004d00;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .contact-content {
