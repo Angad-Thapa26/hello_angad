@@ -478,6 +478,7 @@ nav ul li a:hover {
 
 .project-details-section {
     margin-top: 30px;
+    font-size: 1.3em;
 }
 
 .project-details-section h4 {
@@ -502,3 +503,21 @@ nav ul li a:hover {
     position: absolute;
     left: -20px;
 }
+.project-image {
+    width: 100%;
+    margin: 20px 0;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.project-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.project-photo:hover {
+    transform: scale(1.02);
+} 
