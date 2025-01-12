@@ -229,6 +229,7 @@ nav ul li a:hover {
     border-radius: 8px;
     padding: 20px;
     transition: transform 0.3s ease;
+    font-size: 1.2em;
 }
 
 .project-card:hover {
@@ -242,7 +243,7 @@ nav ul li a:hover {
     color: var(--primary-color);
     border-radius: 15px;
     margin: 5px;
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 /* Contact Section */
@@ -452,18 +453,21 @@ nav ul li a:hover {
 } 
 /* Project Details Page */
 #project-details {
-    padding-top: 100px;
+    padding-top: 40px;
 }
 
 .project-details-content {
-    max-width: 800px;
+    max-width: 10000px; /* Increase the max-width */
+    padding: 30px; /* Increase the padding */
     margin: 0 auto;
 }
 
-.project-info {
-    padding: 20px;
+.project-image {
+    max-width: 90%; /* Decrease the max-width */
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
-
 .project-info h3 {
     color: var(--primary-color);
     font-size: 2em;
@@ -473,11 +477,11 @@ nav ul li a:hover {
 .project-description {
     color: #fff;
     margin-bottom: 30px;
-    font-size: 1.1em;
+    font-size: 1.15em;
 }
 
 .project-details-section {
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .project-details-section h4 {
@@ -502,24 +506,7 @@ nav ul li a:hover {
     position: absolute;
     left: -20px;
 }
-.project-image {
-    width: 100%;
-    margin: 20px 0;
-    border: 1px solid var(--primary-color);
-    border-radius: 8px;
-    overflow: hidden;
-}
 
-.project-photo {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.project-photo:hover {
-    transform: scale(1.02);
-} 
 
 .email-link {
     color: var(--primary-color);
