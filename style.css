@@ -565,7 +565,7 @@ nav ul li a:hover {
 }
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Create 2 columns */
+    grid-template-columns: repeat(3, 1fr); /* Create 3 columns */
     gap: 20px;
     padding: 20px 0;
 }
