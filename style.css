@@ -518,3 +518,190 @@ nav ul li a:hover {
     color: #00cc00;
     text-decoration: underline;
 } 
+.vlog-post p {
+    font-size: 1.2em; /* Increase the font size */
+    line-height: 1.5; /* Adjust line height for better readability */
+    margin-bottom: 20px;
+}
+.thought-of-the-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.thought-icon {
+    font-size: 2em;
+    color: var(--primary-color);
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+}
+
+.thought-bubble {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    max-width: 400px;
+}
+
+.thought-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+}
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 columns */
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    transform-origin: top left;
+    transition: transform 0.3s ease; /* Add transition for smooth scaling */
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease; /* Add transition for smooth scaling */
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1); /* Scale up the image on hover */
+}
+
+.gallery-item-title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.gallery-item:hover .gallery-item-title {
+    display: none; /* Hide the title when the image is hovered */
+}
+
+.gallery-item:hover::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 90%;
+    background: rgba(0, 0, 0, 0.8);
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    border-radius: 8px;
+}
+
+.search-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#search-input {
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-color);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1em;
+}
+
+.table-of-contents {
+    margin: 20px 0;
+    /* position: center;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-color); */
+}
+
+.table-of-contents h3 {
+    color: var(--primary-color);
+    text-align: center;
+}
+
+#toc-list {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+#toc-list li {
+    margin: 10px 0;
+    cursor: pointer;
+    color: var(--primary-color);
+    transition: color 0.3s;
+}
+
+#toc-list li:hover {
+    color: #00cc00;
+}
+.suggestion-title {
+    position: relative;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.suggestion-title::before,
+.suggestion-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 80%;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: translateX(-50%);
+}
+
+.suggestion-title::before {
+    top: -10px;
+}
+
+.suggestion-title::after {
+    bottom: -10px;
+}

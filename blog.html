@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Vlog - Angad Thapa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .section-title {
+    text-transform: capitalize;
+}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">&lt;AT/&gt;</div>
+        <ul>
+            <li><a href="index.html#home">HOME</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+        </ul>
+    </nav>
+    <section id="vlog">
+        <div class="section-container">
+            <h2 class="section-title">./personal_vlog</h2>
+            <div class="vlog-content">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-content">
+                        <p>> user@angad:~$ cat vlog.txt</p>
+                        <p>Welcome to my personal vlog! Here, I share my thoughts, experiences, and adventures. Stay tuned for more updates!</p>
+                    </div>
+                    <div class="thought-of-the-day">
+                        <div class="thought-bubble">
+                            <p>"NOTE OF THE DAY TO BE ADDED "</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search Vlogs...">
+                </div>
+                <div class="table-of-contents">
+                    <h3>Table of Contents</h3>
+                    <ul id="toc-list">
+                        <!-- Table of contents will be populated here -->
+                    </ul>
+                </div>
+                <div class="vlog-posts">
+                    <!-- Add vlog posts here -->
+                    <div class="vlog-post">
+                        <h4 class="section-title">./I shall be writing junks here </h4>
+                        <p>Haha, not junk at all! Every thought has its place, and sometimes, the funniest or seemingly random ideas spark the best conversations or creations. Go ahead, let the "junks" flow!</p>
+                    </div>
+                    <div class="vlog-post">
+                        <h4 class="section-title">./The day</h4>
+                        <p>Vlog description goes here...</p>
+                    </div>
+                    <div class="vlog-post">
+                        <h4 class="section-title">./Find the riddle</h4>
+                        <p>Hi there, any guess whats the date at the footer does?? </p>
+                    </div>
+                    <!-- Add more vlog posts as needed -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <h2 class="section-title">./SUGGESTION</h2>
+    <form id="contact-form" class="contact-form">
+        <input type="text" name="user_name" placeholder="Your Name" required>
+        <input type="email" name="user_email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <div id="status" class="status-message"></div>
+        <button type="submit" class="submit-btn"> Send Feedback </button>
+    </form>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("1snHQqxcO_F_GFizn2Pck");
+        })();
+    </script>
+    <script src="email.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const vlogPosts = document.querySelectorAll('.vlog-post');
+            const tocList = document.getElementById('toc-list');
+
+            // Populate table of contents
+            vlogPosts.forEach((post, index) => {
+                const title = post.querySelector('.section-title').textContent;
+                const tocItem = document.createElement('li');
+                tocItem.textContent = title;
+                tocItem.addEventListener('click', () => {
+                    post.scrollIntoView({ behavior: 'smooth' });
+                });
+                tocList.appendChild(tocItem);
+            });
+
+            // Filter vlog posts based on search input
+            searchInput.addEventListener('input', function() {
+                const filter = searchInput.value.toLowerCase();
+                vlogPosts.forEach(post => {
+                    const title = post.querySelector('.section-title').textContent.toLowerCase();
+                    if (title.includes(filter)) {
+                        post.style.display = '';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.facebook.com/makuraz.hi.angad/" target="_blank" class="social-link">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/makuraz_angad/" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 ANGAD THAPA. All rights reserved.</p>
+            <p class="hacker-text">[ Secured with advanced encryption ]</p>
+            <p> Jan-4 2031</p>
+        </div>
+    </footer>
+</body>
+</html>
