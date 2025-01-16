@@ -12,6 +12,7 @@
     text-transform: capitalize;
 }
     </style>
+     <script src="search.js"></script>
 </head>
 <body>
     <nav>
@@ -76,45 +77,8 @@
         <textarea name="message" placeholder="Your Message" required></textarea>
         <div id="status" class="status-message"></div>
         <button type="submit" class="submit-btn"> Send Feedback </button>
-    </form>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("1snHQqxcO_F_GFizn2Pck");
-        })();
-    </script>
-    <script src="email.js"></script>
-    <script src="main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const vlogPosts = document.querySelectorAll('.vlog-post');
-            const tocList = document.getElementById('toc-list');
-
-            // Populate table of contents
-            vlogPosts.forEach((post, index) => {
-                const title = post.querySelector('.section-title').textContent;
-                const tocItem = document.createElement('li');
-                tocItem.textContent = title;
-                tocItem.addEventListener('click', () => {
-                    post.scrollIntoView({ behavior: 'smooth' });
-                });
-                tocList.appendChild(tocItem);
-            });
-
-            // Filter vlog posts based on search input
-            searchInput.addEventListener('input', function() {
-                const filter = searchInput.value.toLowerCase();
-                vlogPosts.forEach(post => {
-                    const title = post.querySelector('.section-title').textContent.toLowerCase();
-                    if (title.includes(filter)) {
-                        post.style.display = '';
-                    } else {
-                        post.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+         </form>
+    
     <footer class="footer">
         <div class="social-links">
             <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
@@ -136,5 +100,13 @@
             <p> Jan-4 2031</p>
         </div>
     </footer>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <script type="text/javascript">
+    emailjs.init('please use home contact form')
+  </script>
+   <script src="email.js"></script>
+
 </body>
 </html>

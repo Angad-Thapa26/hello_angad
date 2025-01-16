@@ -30,8 +30,7 @@
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#skills">SKILLS</a></li>
             <li><a href="#achievements">ACHIEVEMENTS</a></li>
-            <li><a href="#participation">PARTICIPATION</a></li>
-            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="project.html">PROJECTS</a></li>
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="#contact">CONTACT</a></li>
            
@@ -133,6 +132,7 @@
             <h2 class="section-title">./participation</h2>
             <div class="projects-grid">
                 <div class="project-card">
+
                     <div class="project-content" onclick="window.location.href='#'">
                         <h3>National Caded Corps</h3>
                         <p>Participating in the 100-day NCC program organized by the Nepal Army helped me develop discipline, teamwork, national patriotism, and a refined sense of responsibility.</p>
@@ -159,11 +159,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- Add more project cards -->
-            </div>
+                <!-- <div class="projects-grid">
+                    <div class="project-card" onclick="window.location.href='project.html#test'">
+                        <div class="project-content">
+                            <h3>#</h3>
+                            <div class="project-tags">
+                            </div>
+                        </div>
+                    </div>
+             </div> -->
         </div>
     </section>
-
+   
     <section id="hobbies">
         <div class="section-container">
             <h2 class="section-title">./hobbies</h2>
@@ -224,7 +231,7 @@
                     <input type="email" name="user_email" placeholder="Your Email" required>
                     <textarea name="message" placeholder="Your Message" required></textarea>
                     <div id="status" class="status-message"></div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <button type="submit" id="button" class="submit-btn">Send Message</button>
                 </form>
             </div>
         </div>
@@ -252,11 +259,12 @@
             <p> Jan-4 2031</p>
         </div>
     </footer>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init("1snHQqxcO_F_GFizn2Pck");
-        })();
-    </script>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <script type="text/javascript">
+    emailjs.init('35mH8tFQmHgx4MOmZ')
+  </script>
     <script src="email.js"></script>
     <script src="main.js"></script>
 </body>
