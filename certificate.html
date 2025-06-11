@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates - Angad Thapa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+    <div id="particles-js"></div>
+
+    <nav>
+        <div class="logo" onclick="window.location.href='index.html'">&lt;AT/&gt;</div>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+
+            <li><a href="blog.html">BLOG</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <section id="certificates-wall">
+        <div class="section-container">
+            <h2 class="section-title">./wall_of_certificates</h2>
+            
+            <div class="category-buttons">
+                <button class="category-btn active" data-category="all">All Certificates</button>
+                <button class="category-btn" data-category="ach"> Achievements</button>
+                <button class="category-btn" data-category="course">Certifications</button>
+                <button class="category-btn" data-category="ack">Acknoledgement</button>
+            </div>
+            <div class="certificates-wall-grid">
+                <div class="certificate-item show" data-category="ach">
+                    <a href="image\ack\ack-hac2.jpeg" target="_blank">
+                        <img src="image\ack\ack-hac2.jpeg" alt="Runnerup award U-tec Hackathon ">
+                    </a>
+                    <div class="certificate-details">
+                        <h3>Runnerup award U-tec Hackathon</h3>
+                        <p>Issuing Organization: U-tec</p>
+                    </div>
+                </div>
+                <div class="certificate-item show" data-category="ach">
+                    <a href="image\ack\ack-itquize2.jpeg" target="_blank">
+                        <img src="image\ack\ack-itquize2.jpeg" alt="IT Quize 2nd position">
+                    </a>
+                    <div class="certificate-details">
+                        <h3>IT Quize 2nd position</h3>
+                        <p>Issuing Organization: Forbes CCSA Club</p>
+                    </div>
+                </div>
+                <div class="certificate-item show" data-category="course">
+                    <a href="image\certification\cer-c4c.jpeg" target="_blank">
+                        <img src="image\certification\cer-c4c.jpeg" alt="Certified C4C">
+                    </a>
+                    <div class="certificate-details">
+                        <h3>Certified of Participation</h3>
+                        <p>Workshop: Cybersecurity essentials to advanced</p>
+                        <p>Issuing Organization: Code For Change</p>
+                    </div>
+                </div>
+                <div class="certificate-item show" data-category="ack">
+                    <a href="image\participation\par-ncc.jpeg" target="_blank">
+                        <img src="image\participation\par-ncc.jpeg" alt="Participation on NCC Program By Nepal Army">
+                    </a>
+                    <div class="certificate-details">
+                        <h3>A 100 Day personal development training</h3>
+                        <p>Patriotism and self building on leadership and discipline by Nepal Army</p>
+                        <p>Issuing Organization: National Cadet Corps , Nepal Army</p>
+                    </div>
+                </div>
+                <div class="certificate-item show" data-category="ack">
+                    <a href="image\participation\par-forbes.jpeg" target="_blank">
+                        <img src="image\participation\par-forbes.jpeg" alt="Participation ">
+                    </a>
+                    <div class="certificate-details">
+                        <h3>Program Management Contribution acknowledgement</h3>
+                        <p>Issuing Organization: Forbes College</p>
+                    </div>
+                </div>
+               <!-- 
+                <div class="certificate-item show" data-category="">
+                    <a href="" target="_blank">
+                        <img src="" alt=" ">
+                    </a>
+                    <div class="certificate-details">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
+                -->
+                
+        </div>
+    </section>
+    <div id="lightbox" class="lightbox" style="display:none;">
+    <span class="lightbox-close" id="lightbox-close">&times;</span>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged Certificate">
+</div>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.facebook.com/makuraz.hi.angad/" target="_blank" class="social-link">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/makuraz_angad/" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 ANGAD THAPA. All rights reserved.</p>
+            <p class="hacker-text">[ Secured with advanced encryption ]</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const certificateItems = document.querySelectorAll('.certificate-item');
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const category = button.getAttribute('data-category');
+
+                    certificateItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.classList.add('show');
+                        } else {
+                            item.classList.remove('show');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

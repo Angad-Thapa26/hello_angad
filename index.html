@@ -24,16 +24,16 @@
     <div id="particles-js"></div>
     
     <nav>
-        <div class="logo">&lt;AT/&gt;</div>
+        <div class="logo" onclick="window.location.href='index.html'">&lt;AT/&gt;</div>
         <ul>
             <li><a href="#home">HOME</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#skills">SKILLS</a></li>
             <li><a href="project.html">PROJECTS</a></li>
             <li><a href="#achievements">ACHIEVEMENTS</a></li>
+            <li><a href="certificate.html">CERTIFICATES</a></li>
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="#contact">CONTACT</a></li>
-           
         </ul>
     </nav>
 
@@ -83,6 +83,12 @@
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3>Technical Skills</h3>
+                    <div class="skill-bar">
+                        <div class="skill-name">Networking</div>
+                        <div class="progress-bar">
+                            <div class="progress" data-percent="10"></div>
+                        </div>
+                    </div>
                     <div class="skill-bars">
                         <div class="skill-bar">
                             <div class="skill-name">Cybersecurity</div>
@@ -90,16 +96,17 @@
                                 <div class="progress" data-percent="5"></div>
                             </div>
                         </div>
-                        <div class="skill-bar">
-                            <div class="skill-name">Networking</div>
+                        
+                        <div class="skill-bar"></div>
+                            <div class="skill-name">Web Development</div>
                             <div class="progress-bar">
-                                <div class="progress" data-percent="10"></div>
+                                <div class="progress" data-percent="15"></div>
                             </div>
                         </div>
                         <div class="skill-bar"></div>
                             <div class="skill-name">Film making</div>
                             <div class="progress-bar">
-                                <div class="progress" data-percent="20"></div>
+                                <div class="progress" data-percent="25"></div>
                             </div>
                         </div>
                         <!-- Add more skills -->
@@ -116,7 +123,8 @@
                 <div class="project-card">
                     <div class="project-content" onclick="window.location.href='project.html'">
                         <h3>U-tec Beta Hackathon 2024</h3>
-                        <p>Runner-up position in the hackathon competition</p>
+                        <p>Secured Runner up place in the U-tec Beta Hackathon 2024, showcasing innovative solutions in finance and technology<br> A much needed approach to connect local business with digital customers</p>
+                        <a href="https://github.com/Angad-Thapa26/Samipya" class="email-link">https://github.com/Angad-Thapa26/Samipya</a>
                        <div class="project-tags">
                             <span>Hackathon</span>
                             <span>Finance and Inovation</span>
@@ -131,16 +139,7 @@
     <section id="projects">
         <div class="section-container">
             <h2 class="section-title">./projects</h2>
-            <div class="projects-grid">
-                <div class="project-card" onclick="window.location.href='project.html'">
-                    <div class="project-content">
-                        <h3>SAMIPYA</h3>
-                        <p>From a pin to pinnacle</p>
-                        <div class="project-tags">
-                            <span>Founder & CEO</span>
-                        </div>
-                    </div>
-                </div>
+            
                 <div class="projects-grid">
                     <div class="project-card" onclick="window.location.href='project.html#billsoff'">
                         <div class="project-content">
@@ -148,6 +147,16 @@
                             <p>This is a free open-source Python project application that enables vendors to create inventory, set prices, and generate bills efficiently using a simple GUI-based interface. <br>
                             Initially, you can list products and their prices in the inventory. Subsequently, you can open the application, enter the quantity of goods, and generate the total purchase amount seamlessly. Storing bills has never been this straightforward.</p>
                             you can get it at <a href="https://github.com/Angad-Thapa26/billing-soft" class="email-link">https://github.com/Angad-Thapa26/billing-soft</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-content" onclick="window.location.href='project.html'">
+                            <h3>Samipya</h3>
+
+                            <p>A much needed approach to connect local business with digital customers<br>an application that allows seller to list their product and consumers can search product compare prise and buy based on heir preference and the easy to reach store for fast and convinient traditional trading addapted with digital approach </p>
+                            <a href="https://github.com/Angad-Thapa26/Samipya" class="email-link">https://github.com/Angad-Thapa26/Samipya</a>
+                           <div class="project-tags">
                             </div>
                         </div>
                     </div>
@@ -179,6 +188,46 @@
                     </div>
                 </div>
                 <!-- Add more project cards -->
+            </div>
+        </div>
+    </section>
+     <section id="certificates">
+        <div class="section-container">
+            <h2 class="section-title">./certificates</h2>
+            <div class="certificates-wall-grid">
+            <div class="certificate-item show" data-category="ach">
+                <a href="image\ack\ack-hac2.jpeg" target="_blank">
+                    <img src="image\ack\ack-hac2.jpeg" alt="Runnerup award U-tec Hackathon ">
+                </a>
+                <div class="certificate-details">
+                    <h3>Runnerup award U-tec Hackathon</h3>
+                    <p>Issuing Organization: U-tec</p>
+                </div>
+            </div>
+            
+            <div class="certificate-item show" data-category="course">
+                <a href="image\certification\cer-c4c.jpeg" target="_blank">
+                    <img src="image\certification\cer-c4c.jpeg" alt="Certified C4C">
+                </a>
+                <div class="certificate-details">
+                    <h3>Certified of Participation</h3>
+                    <p>Workshop: Cybersecurity essentials to advanced</p>
+                    <p>Issuing Organization: Code For Change</p>
+                </div>
+            </div>
+            <div class="certificate-item show" data-category="ack">
+                <a href="image\participation\par-ncc.jpeg" target="_blank">
+                    <img src="image\participation\par-ncc.jpeg" alt="Participation on NCC Program By Nepal Army">
+                </a>
+                <div class="certificate-details">
+                    <h3>A 100 Day personal development training</h3>
+                    <p>Patriotism and self building on leadership and discipline by Nepal Army</p>
+                    <p>Issuing Organization: National Cadet Corps , Nepal Army</p>
+                </div>
+            </div>
+        </div>
+            <div class="view-more-container">
+                <button class="view-more-btn" onclick="window.location.href='certificate.html'">View All Certificates</button>
             </div>
         </div>
     </section>
