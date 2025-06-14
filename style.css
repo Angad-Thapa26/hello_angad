@@ -980,7 +980,8 @@ html {
     display: none;
     cursor: pointer;
     padding: 10px;
-    z-index: 1000;
+    z-index: 1001;
+    position: relative;
 }
 
 .hamburger span {
@@ -993,8 +994,19 @@ html {
 }
 
 @media (max-width: 768px) {
+    nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+    }
+
     .hamburger {
         display: block;
+        position: relative;
     }
 
     .nav-links {
@@ -1008,21 +1020,34 @@ html {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        transition: right 0.3s ease;
+        transition: all 0.3s ease;
         z-index: 999;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 
     .nav-links.active {
         right: 0;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .nav-links li {
         margin: 20px 0;
+        opacity: 0;
+        transform: translateX(50px);
+        transition: all 0.3s ease;
+    }
+
+    .nav-links.active li {
+        opacity: 1;
+        transform: translateX(0);
     }
 
     .nav-links li a {
         font-size: 1.2em;
         color: var(--text-color);
+        display: block;
+        padding: 10px 20px;
     }
 
     /* Hamburger Animation */
@@ -1037,6 +1062,16 @@ html {
     .hamburger.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -6px);
     }
+
+    /* Add delay for each menu item */
+    .nav-links li:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links li:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links li:nth-child(3) { transition-delay: 0.3s; }
+    .nav-links li:nth-child(4) { transition-delay: 0.4s; }
+    .nav-links li:nth-child(5) { transition-delay: 0.5s; }
+    .nav-links li:nth-child(6) { transition-delay: 0.6s; }
+    .nav-links li:nth-child(7) { transition-delay: 0.7s; }
+    .nav-links li:nth-child(8) { transition-delay: 0.8s; }
 }
 
 /* Desktop Navigation */
@@ -1044,6 +1079,8 @@ html {
     .nav-links {
         display: flex;
         list-style: none;
+        margin: 0;
+        padding: 0;
     }
 
     .nav-links li {
@@ -1054,6 +1091,7 @@ html {
         color: var(--text-color);
         text-decoration: none;
         transition: color 0.3s;
+        text-transform: uppercase;
     }
 
     .nav-links li a:hover {
