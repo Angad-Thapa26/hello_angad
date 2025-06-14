@@ -308,8 +308,15 @@
             </div>
         </div>
     </section>
-    
-
+    <button id="back-to-top" title="Back to Top" style="margin-left: 0;">↑</button>
+    <script>
+        document.getElementById('back-to-top').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
     <footer class="footer">
         <div class="social-links">
             <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
@@ -339,5 +346,5 @@
   </script>
     <script src="email.js"></script>
     <script src="main.js"></script>
-</body>
+    </body>
 </html> 
