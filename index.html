@@ -25,7 +25,12 @@
     
     <nav>
         <div class="logo" onclick="window.location.href='index.html'">&lt;AT/&gt;</div>
-        <ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
             <li><a href="#home">HOME</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#skills">SKILLS</a></li>
@@ -309,14 +314,7 @@
         </div>
     </section>
     <button id="back-to-top" title="Back to Top" style="margin-left: 0;">↑</button>
-    <script>
-        document.getElementById('back-to-top').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
+    
     <footer class="footer">
         <div class="social-links">
             <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">

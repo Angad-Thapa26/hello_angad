@@ -27,3 +27,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const certificateItems = document.querySelectorAll('.certificate-item');
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            const category = button.getAttribute('data-category');
+
+            certificateItems.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.add('show');
+                } else {
+                    item.classList.remove('show');
+                }
+            });
+        });
+    });
+});

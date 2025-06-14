@@ -17,10 +17,16 @@
 <body>
     <nav>
         <div class="logo">&lt;AT/&gt;</div>
-        <ul>
-            <li><a href="index.html#home">HOME</a></li>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
             <li><a href="gallery.html">GALLERY</a></li>
-        </ul>
+            
+
     </nav>
     <section id="vlog">
         <div class="section-container">
@@ -75,6 +81,7 @@
             </div>
         </div>
     </section>
+    <button id="back-to-top" title="Back to Top" style="margin-left: 0;">↑</button>
     <h2 class="section-title">./SUGGESTION</h2>
     <form id="contact-form" class="contact-form">
         <input type="text" name="user_name" placeholder="Your Name" required>
@@ -83,7 +90,7 @@
         <div id="status" class="status-message"></div>
         <button type="submit" class="submit-btn"> Send Feedback </button>
          </form>
-    
+         <button id="back-to-top" title="Back to Top" style="margin-left: 0;">↑</button>
     <footer class="footer">
         <div class="social-links">
             <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
@@ -112,6 +119,6 @@
     emailjs.init('please use home contact form')
   </script>
    <script src="email.js"></script>
-
+   <script src="main.js"></script>
 </body>
 </html>

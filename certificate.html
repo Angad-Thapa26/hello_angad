@@ -20,9 +20,13 @@
 
     <nav>
         <div class="logo" onclick="window.location.href='index.html'">&lt;AT/&gt;</div>
-        <ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
             <li><a href="index.html">HOME</a></li>
-
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="gallery.html">GALLERY</a></li>
             <li><a href="index.html#contact">CONTACT</a></li>
@@ -128,7 +132,7 @@
     <img class="lightbox-img" id="lightbox-img" src="" alt="Enlarged Certificate">
 </div>
 
-        
+<button id="back-to-top" title="Back to Top" style="margin-left: 0;">↑</button>
     <footer class="footer">
         <div class="social-links">
             <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
@@ -153,30 +157,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="main.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            const certificateItems = document.querySelectorAll('.certificate-item');
-
-            categoryButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    categoryButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    button.classList.add('active');
-
-                    const category = button.getAttribute('data-category');
-
-                    certificateItems.forEach(item => {
-                        if (category === 'all' || item.getAttribute('data-category') === category) {
-                            item.classList.add('show');
-                        } else {
-                            item.classList.remove('show');
-                        }
-                    });
-                });
-            });
-        });
-    </script>
+    <script src="search.js"></script>
 </body>
 </html>

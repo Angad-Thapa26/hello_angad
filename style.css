@@ -288,14 +288,153 @@ nav ul li a:hover {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .contact-content {
-        grid-template-columns: 1fr;
+    /* Navigation */
+    nav {
+        padding: 15px;
     }
-    
+
+    .logo {
+        font-size: 20px;
+    }
+
     nav ul {
         display: none;
     }
-} 
+
+    /* Home Section */
+    .glitch {
+        font-size: 2.5em;
+    }
+
+    .subtitle {
+        font-size: 1.2em;
+    }
+
+    .terminal {
+        width: 95%;
+        padding: 15px;
+    }
+
+    /* Section Containers */
+    .section-container {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .project-card {
+        margin: 0;
+    }
+
+    /* Contact Form */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px;
+    }
+
+    /* Back to Top Button */
+    #back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 20px;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 30px 15px;
+    }
+
+    .social-link {
+        font-size: 20px;
+        margin: 0 10px;
+    }
+
+    /* Project Details */
+    .project-details-content {
+        padding: 20px;
+    }
+
+    .project-image {
+        max-width: 100%;
+    }
+
+    .project-info h3 {
+        font-size: 1.6em;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Certificates */
+    .certificates-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .certificate-card {
+        margin: 0;
+    }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+    .glitch {
+        font-size: 2em;
+    }
+
+    .section-title {
+        font-size: 1.5em;
+    }
+
+    .terminal {
+        padding: 10px;
+    }
+
+    .hobby-card {
+        padding: 15px;
+    }
+
+    .hobby-icon {
+        font-size: 2em;
+    }
+}
+
+/* Add smooth scrolling to the whole page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Fix for iOS Safari 100vh issue */
+@supports (-webkit-touch-callout: none) {
+    #home {
+        height: -webkit-fill-available;
+    }
+}
 
 .footer {
     position: relative;
@@ -834,4 +973,90 @@ nav ul li a:hover {
 
 #back-to-top.visible {
     display: block;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.3s ease;
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        margin: 20px 0;
+    }
+
+    .nav-links li a {
+        font-size: 1.2em;
+        color: var(--text-color);
+    }
+
+    /* Hamburger Animation */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+}
+
+/* Desktop Navigation */
+@media (min-width: 769px) {
+    .nav-links {
+        display: flex;
+        list-style: none;
+    }
+
+    .nav-links li {
+        margin: 0 20px;
+    }
+
+    .nav-links li a {
+        color: var(--text-color);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .nav-links li a:hover {
+        color: var(--primary-color);
+    }
 }
