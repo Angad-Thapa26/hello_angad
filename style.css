@@ -283,33 +283,61 @@ nav {
 }
 
 /* Skills Section */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
+/* Skills Page Grid */
+.skills-grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.skills-card { background: rgba(0, 0, 0, 0.8); border: 1px solid var(--primary-color); border-radius: 8px; padding: 16px; }
+.skills-card h3 { color: var(--primary-color); margin-bottom: 10px; }
+.skills-card .badge-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.skills-card .badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 10px; border-radius: 16px; background: rgba(0,255,0,0.08); font-size: 0.95em; }
 
-.skill-bar {
-    margin: 20px 0;
-}
+/* Force white text inside skills page badges */
+#skills-page .skills-card .badge { color: #ffffff; }
+#skills-page .skills-card .badge i { color: #ffffff; }
+.skills-scroller { display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+.skill-row { width: 100%; mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent); }
+.row-inner { display: inline-flex; gap: 12px; white-space: nowrap; }
+.skill-badge { display: inline-block; padding: 8px 14px; border: 1px solid var(--primary-color); color: var(--primary-color); background: rgba(0,255,0,0.08); border-radius: 16px; font-size: 0.95em; }
 
-.skill-name {
-    color: var(--primary-color);
-    margin-bottom: 5px;
+/* Animations */
+@keyframes scroll-ltr {
+    0% { transform: translateX(-10%); }
+    100% { transform: translateX(-60%); }
 }
-
-.progress-bar {
-    height: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
-    overflow: hidden;
+@keyframes scroll-rtl {
+    0% { transform: translateX(-60%); }
+    100% { transform: translateX(-10%); }
 }
+.skill-row.ltr .row-inner { animation: scroll-ltr 70s linear infinite; }
+.skill-row.rtl .row-inner { animation: scroll-rtl 70s linear infinite; }
 
-.progress {
-    height: 100%;
-    background: var(--primary-color);
-    width: 0;
-    transition: width 1.5s ease-in-out;
+@media (max-width: 768px) {
+    .skill-badge { padding: 6px 10px; font-size: 0.85em; }
+    .skill-row.ltr .row-inner, .skill-row.rtl .row-inner { animation-duration: 60s; }
+}
+.skills-game { margin-top: 10px; }
+.game-ui { display: flex; flex-direction: column; gap: 20px; }
+.game-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.game-status { color: var(--primary-color); }
+.status-label { opacity: 0.8; margin-right: 6px; }
+.status-sep { margin: 0 10px; opacity: 0.5; }
+.btn-ghost { background: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 8px 14px; cursor: pointer; font-family: 'Share Tech Mono', monospace; transition: all 0.2s ease; }
+.btn-ghost:hover { background: rgba(0,255,0,0.1); }
+.quiz-card { background: rgba(0,0,0,0.8); border: 1px solid var(--primary-color); border-radius: 8px; padding: 16px; }
+.quiz-question { font-size: 1.1em; color: #fff; margin-bottom: 12px; }
+.quiz-options { display: grid; gap: 10px; }
+.quiz-option { background: rgba(0, 255, 0, 0.1); border: 1px solid var(--primary-color); color: #fff; padding: 10px 12px; border-radius: 6px; cursor: pointer; text-align: left; transition: transform 0.15s ease, background 0.2s; }
+.quiz-option:hover { transform: translateY(-2px); background: rgba(0, 255, 0, 0.15); }
+.quiz-option.correct { border-color: #00ff88; background: rgba(0, 255, 136, 0.15); }
+.quiz-option.wrong { border-color: #ff4d4d; background: rgba(255, 77, 77, 0.12); }
+.quiz-feedback { min-height: 20px; color: var(--primary-color); margin-top: 6px; }
+.badge-title { color: var(--primary-color); margin: 10px 0; }
+.badge-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 6px 10px; border-radius: 16px; background: rgba(0,255,0,0.08); font-size: 0.95em; }
+.badge.locked { opacity: 0.35; filter: grayscale(0.8); }
+.badge i { color: var(--primary-color); }
+
+@media (max-width: 768px) {
+    .quiz-options { grid-template-columns: 1fr; }
 }
 
 /* Projects Section */
