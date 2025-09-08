@@ -281,7 +281,21 @@ nav {
     margin: 10px 0;
     color: #fff;
 }
+/* Skills Section */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
 
+.skill-bar {
+    margin: 20px 0;
+}
+
+.skill-name {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
 /* Skills Section */
 /* Skills Page Grid */
 .skills-grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
