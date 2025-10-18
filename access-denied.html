@@ -127,6 +127,44 @@
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
+        
+        .terminal-input-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .terminal-prompt {
+            color: var(--primary-color);
+            font-family: 'Share Tech Mono', monospace;
+            margin-right: 5px;
+        }
+        
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9em;
+            outline: none;
+            flex: 1;
+            padding: 0;
+        }
+        
+        .terminal-input::placeholder {
+            color: rgba(0, 255, 0, 0.5);
+        }
+        
+        .terminal-output {
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .terminal-output .terminal-text {
+            margin: 2px 0;
+            font-size: 0.85em;
+        }
     </style>
 </head>
 <body>
@@ -146,10 +184,166 @@
         <div class="terminal-text">$ access_level: DENIED</div>
         <div class="terminal-text">$ reason: UNAUTHORIZED_ACCESS</div>
         <div class="terminal-text">$ return_to: <a href="index.html" style="color: var(--primary-color);">index.html</a></div>
-        <div class="terminal-text blinking-cursor">_</div>
+        <div class="terminal-text">$ Type commands below:</div>
+        <div class="terminal-input-container">
+            <span class="terminal-prompt">$ </span>
+            <input type="text" id="terminal-input" class="terminal-input" placeholder="Enter command..." autocomplete="off">
+            <span class="blinking-cursor">_</span>
+        </div>
+        <div id="terminal-output" class="terminal-output"></div>
     </div>
     
     <script>
+        // Terminal functionality
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        let commandHistory = [];
+        let historyIndex = -1;
+        
+        // Available commands
+        const commands = {
+            'help': () => {
+                return [
+                    'Available commands:',
+                    'help - Show this help message',
+                    'status - Show system status',
+                    'clear - Clear terminal output',
+                    'whoami - Show current user',
+                    'ls - List files (simulated)',
+                    'pwd - Show current directory',
+                    'exit - Return to main page',
+                    'hack - Attempt system hack (simulated)',
+                    'matrix - Enter the matrix',
+                    'glitch - Trigger glitch effect'
+                ];
+            },
+            'status': () => {
+                return [
+                    'System Status: LOCKED',
+                    'Access Level: DENIED',
+                    'Security Level: MAXIMUM',
+                    'Last Login: NEVER',
+                    'Attempts: ' + Math.floor(Math.random() * 1000)
+                ];
+            },
+            'clear': () => {
+                terminalOutput.innerHTML = '';
+                return [];
+            },
+            'whoami': () => {
+                return ['user: unauthorized', 'permissions: none', 'status: blocked'];
+            },
+            'ls': () => {
+                return [
+                    'access_denied.txt',
+                    'security_logs/',
+                    'firewall.conf',
+                    'encrypted_data.bin',
+                    'system_lock'
+                ];
+            },
+            'pwd': () => {
+                return ['/restricted/access_denied'];
+            },
+            'exit': () => {
+                window.location.href = 'index.html';
+                return [];
+            },
+            'hack': () => {
+                return [
+                    'Initiating hack sequence...',
+                    'Bypassing firewall...',
+                    'Accessing mainframe...',
+                    'ERROR: Security protocols activated',
+                    'Connection terminated',
+                    'Hack attempt failed. System remains secure.'
+                ];
+            },
+            'matrix': () => {
+                return [
+                    'Welcome to the Matrix...',
+                    'Reality is an illusion...',
+                    'The Matrix has you...',
+                    'Follow the white rabbit...',
+                    'Wake up, Neo...'
+                ];
+            },
+            'glitch': () => {
+                triggerGlitchEffect();
+                return ['Glitch effect activated...'];
+            }
+        };
+        
+        function addOutputLine(text, className = 'terminal-text') {
+            const line = document.createElement('div');
+            line.className = className;
+            line.textContent = text;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+        
+        function processCommand(command) {
+            const cmd = command.toLowerCase().trim();
+            
+            if (cmd === '') {
+                return;
+            }
+            
+            // Add command to history
+            commandHistory.push(command);
+            historyIndex = commandHistory.length;
+            
+            // Show the command that was entered
+            addOutputLine('$ ' + command, 'terminal-text');
+            
+            if (commands[cmd]) {
+                const output = commands[cmd]();
+                if (output.length > 0) {
+                    output.forEach(line => addOutputLine(line));
+                }
+            } else {
+                addOutputLine(`Command not found: ${cmd}`, 'terminal-text');
+                addOutputLine('Type "help" for available commands', 'terminal-text');
+            }
+        }
+        
+        function triggerGlitchEffect() {
+            const image = document.querySelector('.access-denied-image');
+            image.style.filter = 'hue-rotate(180deg) contrast(1.5) saturate(2)';
+            setTimeout(() => {
+                image.style.filter = 'none';
+            }, 500);
+        }
+        
+        // Event listeners
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = terminalInput.value;
+                processCommand(command);
+                terminalInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    terminalInput.value = commandHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    terminalInput.value = commandHistory[historyIndex];
+                } else if (historyIndex === commandHistory.length - 1) {
+                    historyIndex = commandHistory.length;
+                    terminalInput.value = '';
+                }
+            }
+        });
+        
+        // Focus the input when clicking on terminal
+        document.querySelector('.terminal-overlay').addEventListener('click', function() {
+            terminalInput.focus();
+        });
+        
         // Add some terminal-like typing effect
         const terminalTexts = document.querySelectorAll('.terminal-text');
         let currentIndex = 0;
@@ -185,9 +379,14 @@
         
         // Add keyboard navigation
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' || e.key === 'Backspace') {
+            if (e.key === 'Escape') {
                 window.location.href = 'index.html';
             }
+        });
+        
+        // Focus input on page load
+        window.addEventListener('load', function() {
+            terminalInput.focus();
         });
     </script>
 </body>
