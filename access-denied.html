@@ -255,7 +255,7 @@
     </style>
 </head>
 <body>
-    <!-- Password Protection Overlay -->
+    
     <div class="password-overlay" id="passwordOverlay">
         <div class="password-container">
             <div class="password-title">ACCESS REQUIRED</div>
@@ -265,6 +265,7 @@
             <div class="password-hint">Hint: Think of a common hacker term</div>
         </div>
     </div>
+    
     
     <div class="access-denied-container hidden" id="mainContent">
         <img src="image/it/ad.png" alt="ACCESS DENIED" class="access-denied-image">
@@ -292,8 +293,8 @@
     </div>
     
     <script>
-        // Password Protection
-        const correctPassword = 'hack'; // Change this to your desired password
+        const PASSWORD_PROTECTION_ENABLED = false; // toggle 
+        const correctPassword = 'hack'; 
         let attempts = 0;
         const maxAttempts = 3;
         
@@ -306,38 +307,42 @@
             const enteredPassword = passwordInput.value.toLowerCase().trim();
             
             if (enteredPassword === correctPassword) {
-                // Correct password - show content
                 passwordOverlay.classList.add('hidden');
                 mainContent.classList.remove('hidden');
-                // Initialize terminal after password is correct
                 initializeTerminal();
             } else {
                 attempts++;
                 if (attempts >= maxAttempts) {
-                    // Too many attempts - redirect to main page
-                    passwordError.textContent = 'Too many failed attempts. Access denied.';
+                     passwordError.textContent = 'Too many failed attempts. Access denied.';
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 2000);
                 } else {
-                    // Wrong password - show error
+                   
                     passwordError.textContent = `Incorrect password. Attempts: ${attempts}/${maxAttempts}`;
                     passwordInput.value = '';
                     passwordInput.focus();
                 }
             }
         }
-        
-        // Allow Enter key to submit password
+         // Allow Enter key to submit password
         document.getElementById('passwordInput').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 checkPassword();
             }
         });
         
-        // Focus password input on page load
+        // Check if password protection is enabled
         window.addEventListener('load', function() {
-            document.getElementById('passwordInput').focus();
+            if (!PASSWORD_PROTECTION_ENABLED) {
+                // Password protection disabled - show content immediately
+                document.getElementById('passwordOverlay').classList.add('hidden');
+                document.getElementById('mainContent').classList.remove('hidden');
+                initializeTerminal();
+            } else {
+                // Password protection enabled - focus password input
+                document.getElementById('passwordInput').focus();
+            }
         });
         
         // Terminal functionality
