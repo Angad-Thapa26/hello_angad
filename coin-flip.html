@@ -265,6 +265,7 @@
             <p>Heads: <span id="headsCount">0</span></p>
             <p>Tails: <span id="tailsCount">0</span></p>
             <p>Heads %: <span id="headsPercent">0</span>%</p>
+            <p>Tails %: <span id="tailsPercent">0</span>%</p>
         </div>
     </div>
     
@@ -317,9 +318,7 @@
                 const result = isHeads ? 'HEADS' : 'TAILS';
                 resultDisplay.innerHTML = `
                     <div class="result-text">RESULT: ${result}</div>
-                    <div style="color: var(--secondary-color); font-size: 0.9em;">
-                        ${isHeads ? '🪙 Lucky!' : '🪙 Try again!'}
-                    </div>
+                    
                 `;
                 
                 // Update statistics display
