@@ -107,11 +107,11 @@
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid var(--primary-color);
             border-radius: 5px;
-            padding: 15px;
+            padding: 16.5px;
             font-family: 'Share Tech Mono', monospace;
             color: var(--primary-color);
             z-index: 1000;
-            max-width: 300px;
+            max-width: 330px;
         }
         
         .terminal-text {
@@ -209,12 +209,21 @@
                     'status - Show system status',
                     'clear - Clear terminal output',
                     'whoami - Show current user',
-                    'ls - List files (simulated)',
+                    'ls - List files ',
                     'pwd - Show current directory',
                     'exit - Return to main page',
-                    'hack - Attempt system hack (simulated)',
-                    'matrix - Enter the matrix',
-                    'glitch - Trigger glitch effect'
+                    'hack - Attempt system hack ',
+                    'glitch - Trigger glitch effect',
+                    'coin - Launch coin flip simulator',
+                    'coinflip - Launch coin flip simulator',
+                    'if - Show IP address information',
+                    'ping - Redirect to contact page',
+                    'dice - Roll a dice (1-6)',
+                    'password - Generate secure password',
+                    'hash - Hash text (simulated)',
+                    'encrypt - Encrypt message (simulated)',
+                    'color - Change terminal color',
+                    'screen - Apply screen effects'
                 ];
             },
             'status': () => {
@@ -259,18 +268,127 @@
                     'Hack attempt failed. System remains secure.'
                 ];
             },
-            'matrix': () => {
-                return [
-                    'Welcome to the Matrix...',
-                    'Reality is an illusion...',
-                    'The Matrix has you...',
-                    'Follow the white rabbit...',
-                    'Wake up, Neo...'
-                ];
-            },
+            
             'glitch': () => {
                 triggerGlitchEffect();
                 return ['Glitch effect activated...'];
+            },
+            'coin': () => {
+                window.location.href = 'coin-flip.html';
+                return ['Redirecting to coin flip simulator...'];
+            },
+            'coinflip': () => {
+                window.location.href = 'coin-flip.html';
+                return ['Redirecting to coin flip simulator...'];
+            },
+            'if': () => {
+                return new Promise((resolve) => {
+                    addOutputLine('Fetching IP address and location data...', 'terminal-text');
+                    
+                    // Use the enhanced geo API for detailed information
+                    fetch('https://geo.ipify.org/api/v2/country?apiKey=at_9Wdv4oF4pEuzhyR5qV7XbDErN6ZvX')
+                        .then(response => response.json())
+                        .then(data => {
+                            resolve([
+                                `IP Address: ${data.ip}`,
+                                `Country: ${data.location.country}`,
+                                `Region: ${data.location.region}`,
+                                `Timezone: UTC${data.location.timezone}`,
+                                `ISP: ${data.isp}`,
+                                `ASN: ${data.as.asn} (${data.as.name})`,
+                                `Route: ${data.as.route}`,
+                                `Type: ${data.as.type}`
+                            ]);
+                        })
+                        .catch(() => {
+                            // Fallback if API fails
+                            resolve([
+                                'IP: Unable to fetch external IP',
+                                'Local IP: 127.0.0.1 (localhost)',
+                                'Status: Local connection only',
+                                'Note: External IP detection failed'
+                            ]);
+                        });
+                });
+            },
+            'ping': () => {
+                window.location.href = 'index.html#contact';
+                return ['Redirecting to contact page...'];
+            },
+            'dice': () => {
+                const roll = Math.floor(Math.random() * 6) + 1;
+                return [
+                    `Rolling dice...`,
+                    `Result: ${roll}`,
+                    roll === 6 ? '🎲 Critical hit!' : roll === 1 ? '💀 Critical miss!' : '🎯 Good roll!'
+                ];
+            },
+            'password': () => {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+                let password = '';
+                for (let i = 0; i < 12; i++) {
+                    password += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                return [
+                    'Generating secure password...',
+                    `Password: ${password}`,
+                    'Length: 12 characters',
+                    'Complexity: High',
+                    'Security: Strong'
+                ];
+            },
+            'hash': () => {
+                const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+                return [
+                    'Hashing text...',
+                    `Hash: ${hash}`,
+                    'Algorithm: SHA-256 (simulated)',
+                    'Length: 32 characters',
+                    'Status: Complete'
+                ];
+            },
+            'encrypt': () => {
+                const encrypted = btoa('ENCRYPTED_MESSAGE_' + Date.now());
+                return [
+                    'Encrypting message...',
+                    `Encrypted: ${encrypted}`,
+                    'Algorithm: AES-256 (simulated)',
+                    'Key: Generated',
+                    'Status: Secure'
+                ];
+            },
+            'color': () => {
+                const colors = ['#00ff00', '#00ffff', '#ff00ff', '#ffff00', '#ff6600', '#ff0066'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                document.documentElement.style.setProperty('--primary-color', randomColor);
+                return [
+                    'Changing terminal color...',
+                    `New color: ${randomColor}`,
+                    'Theme: Updated',
+                    'Status: Applied'
+                ];
+            },
+            'screen': () => {
+                // Add screen effects
+                const effects = [
+                    () => {
+                        document.body.style.filter = 'hue-rotate(180deg) contrast(1.5)';
+                        setTimeout(() => document.body.style.filter = 'none', 1000);
+                        return ['Screen effect: Glitch activated'];
+                    },
+                    () => {
+                        document.body.style.filter = 'invert(1)';
+                        setTimeout(() => document.body.style.filter = 'none', 2000);
+                        return ['Screen effect: Invert colors'];
+                    },
+                    () => {
+                        document.body.style.filter = 'blur(2px)';
+                        setTimeout(() => document.body.style.filter = 'none', 1500);
+                        return ['Screen effect: Blur activated'];
+                    }
+                ];
+                const effect = effects[Math.floor(Math.random() * effects.length)];
+                return effect();
             }
         };
         
@@ -298,8 +416,19 @@
             
             if (commands[cmd]) {
                 const output = commands[cmd]();
-                if (output.length > 0) {
-                    output.forEach(line => addOutputLine(line));
+                
+                // Handle Promise-based commands (like IP)
+                if (output instanceof Promise) {
+                    output.then(result => {
+                        if (result.length > 0) {
+                            result.forEach(line => addOutputLine(line));
+                        }
+                    });
+                } else {
+                    // Handle regular commands
+                    if (output.length > 0) {
+                        output.forEach(line => addOutputLine(line));
+                    }
                 }
             } else {
                 addOutputLine(`Command not found: ${cmd}`, 'terminal-text');
