@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Access - Angad Thapa</title>
+    <link rel="icon" type="image/png" href="image/it/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="load-env.js"></script>
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #00ff00;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f56; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #27ca3f; }
+
+        .terminal-title {
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .login-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            border-color: #00ff41;
+        }
+
+        .form-input::placeholder {
+            color: #00ff00;
+            opacity: 0.7;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(45deg, #00ff00, #00ff41);
+            border: none;
+            border-radius: 5px;
+            color: #000;
+            font-family: 'Fira Code', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(45deg, #00ff41, #00ff00);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .hacker-quote {
+            color: #00ff00;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00ff00;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 20;
+        }
+
+        .back-btn:hover {
+            color: #00ff41;
+        }
+
+        .glitch-text {
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid #00ff00;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #00ff00; }
+        }
+    </style>
+</head>
+<body>
+    <div class="night">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+    <div id="particles-js"></div>
+    
+    <div class="matrix-bg"></div>
+    
+    <a href="certificate.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+
+    <div class="login-container">
+        <div class="login-box">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                </div>
+                <div class="terminal-title">admin@angad:~$ sudo su -</div>
+            </div>
+            
+            <!-- Subtle hint in terminal style -->
+            <div style="color: #00ff00; font-family: 'Fira Code', monospace; font-size: 11px; margin-bottom: 15px; opacity: 0.6; text-align: center;">
+                <span style="color: #00ff41;">$</span> Be INSPECTOR Chingum .
+            </div>
+            
+            <div class="login-form">
+                <form id="adminForm">
+                    <div class="form-group">
+                        <label class="form-label">Sudo Password:</label>
+                        <input 
+                            type="password" 
+                            id="adminPassword" 
+                            class="form-input" 
+                            placeholder="Enter the sudo password..."
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-terminal"></i> ACCESS GRANTED
+                    </button>
+                    
+                    <div id="errorMessage" class="error-message">
+                        Access Denied. Invalid credentials.
+                    </div>
+                    
+                    <!-- Hidden hint for developers -->
+                    <div style="display: none;" id="devHint">
+                        <!-- Hint: Check the source code for the password -->
+                        <span style="color: #00ff00; font-size: 10px; opacity: 0.3;">
+                            // TODO: Move password to environment variables
+                            // Current password is hardcoded for demo purposes
+                            // Hint: Look in the JavaScript section
+                        </span>
+                    </div>
+                    
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+    <script>
+       
+
+        const ADMIN_PASSWORD = window.ENV?.ADMIN_PASSWORD || "nepal123";
+        const MAX_LOGIN_ATTEMPTS = parseInt(window.ENV?.MAX_LOGIN_ATTEMPTS || "5");
+        const LOCKOUT_DURATION = parseInt(window.ENV?.LOCKOUT_DURATION || "100");
+        
+        // Lockout state management
+        let failedAttempts = 0;
+        let isLockedOut = false;
+        let lockoutEndTime = null;
+
+        // Check if user is currently locked out
+        function checkLockoutStatus() {
+            if (lockoutEndTime && Date.now() < lockoutEndTime) {
+                isLockedOut = true;
+                return true;
+            } else {
+                isLockedOut = false;
+                lockoutEndTime = null;
+                return false;
+            }
+        }
+
+        // Update lockout display
+        function updateLockoutDisplay() {
+            const errorMessage = document.getElementById('errorMessage');
+            const submitBtn = document.querySelector('.login-btn');
+            const passwordInput = document.getElementById('adminPassword');
+            
+            if (isLockedOut) {
+                const remainingTime = Math.ceil((lockoutEndTime - Date.now()) / 1000);
+                errorMessage.textContent = `Account locked out. Try again in ${remainingTime} seconds.`;
+                errorMessage.style.color = "#ff4444";
+                errorMessage.classList.add('show');
+                
+                submitBtn.disabled = true;
+                submitBtn.textContent = "🔒 LOCKED OUT";
+                passwordInput.disabled = true;
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-terminal"></i> ACCESS GRANTED';
+                passwordInput.disabled = false;
+            }
+        }
+
+        // Initialize lockout check on page load
+        window.addEventListener('load', function() {
+            checkLockoutStatus();
+            updateLockoutDisplay();
+        });
+
+        // Initialize particles
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80 },
+                color: { value: "#00ff00" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5 },
+                size: { value: 3 },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#00ff00",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+       
+        document.getElementById('adminForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check lockout status first
+            if (checkLockoutStatus()) {
+                updateLockoutDisplay();
+                return;
+            }
+            
+            const password = document.getElementById('adminPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === ADMIN_PASSWORD) {
+                // Success - reset failed attempts and redirect
+                failedAttempts = 0;
+                errorMessage.textContent = "Access Granted! Redirecting...";
+                errorMessage.style.color = "#00ff00";
+                errorMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    // Redirect to admin dashboard
+                    window.location.href = 'access-denied.html';
+                }, 1500);
+            } else {
+                // Failed attempt
+                failedAttempts++;
+                errorMessage.textContent = `Access Denied. Invalid credentials. (${failedAttempts}/${MAX_LOGIN_ATTEMPTS} attempts)`;
+                errorMessage.style.color = "#ff4444";
+                errorMessage.classList.add('show');
+                
+                // Check if max attempts reached
+                if (failedAttempts >= MAX_LOGIN_ATTEMPTS) {
+                    isLockedOut = true;
+                    lockoutEndTime = Date.now() + (LOCKOUT_DURATION * 1000);
+                    errorMessage.textContent = `Account locked out for ${LOCKOUT_DURATION} seconds due to too many failed attempts.`;
+                    updateLockoutDisplay();
+                    
+                    // Start countdown timer
+                    const lockoutTimer = setInterval(() => {
+                        if (checkLockoutStatus()) {
+                            updateLockoutDisplay();
+                        } else {
+                            clearInterval(lockoutTimer);
+                            failedAttempts = 0;
+                            errorMessage.classList.remove('show');
+                        }
+                    }, 1000);
+                } else {
+                    // Clear password field and hide error after 3 seconds
+                    document.getElementById('adminPassword').value = '';
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                    }, 3000);
+                }
+            }
+        });
+
+        // Add typing effect to password field
+        document.getElementById('adminPassword').addEventListener('focus', function() {
+            this.style.borderColor = '#00ff41';
+            this.style.boxShadow = '0 0 15px rgba(0, 255, 0, 0.5)';
+        });
+
+        document.getElementById('adminPassword').addEventListener('blur', function() {
+            this.style.borderColor = '#00ff00';
+            this.style.boxShadow = 'none';
+        });
+    </script>
+</body>
+</html>

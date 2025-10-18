@@ -347,9 +347,9 @@
                 <i class="fab fa-instagram"></i>
             </a>
         </div>
-        <div class="copyright">
+         <div class="copyright">
             <p>&copy; 2025 ANGAD THAPA. All rights reserved.</p>
-            <p class="hacker-text">[ Secured with advanced encryption 🫣]</p>
+            <p class="hacker-text">[ Secured with advanced encryption <span id="admin-login-btn" style="cursor: pointer; color: #00ff00; text-decoration: underline;">🫣</span>]</p>
             <p> Jan-4 2031</p>
         </div>
     </footer>
@@ -361,5 +361,37 @@
   </script>
     <script src="email.js"></script>
     <script src="main.js"></script>
+    <script>
+        // Admin login functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const adminLoginBtn = document.getElementById('admin-login-btn');
+            
+            if (adminLoginBtn) {
+                adminLoginBtn.addEventListener('click', function() {
+                    // Add a subtle animation effect
+                    this.style.transform = 'scale(1.2)';
+                    this.style.transition = 'transform 0.2s ease';
+                    
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                    
+                    // Redirect to admin login page
+                    setTimeout(() => {
+                        window.location.href = 'admin-login.html';
+                    }, 300);
+                });
+                
+                // Add hover effect
+                adminLoginBtn.addEventListener('mouseenter', function() {
+                    this.style.textShadow = '0 0 10px #00ff00';
+                });
+                
+                adminLoginBtn.addEventListener('mouseleave', function() {
+                    this.style.textShadow = 'none';
+                });
+            }
+        });
+    </script>
     </body>
 </html> 

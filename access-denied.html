@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCESS DENIED - Know_Angad</title>
+    <link rel="icon" type="image/png" href="image/it/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #0a0a0a;
+        }
+        
+        .access-denied-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0a0a0a;
+            z-index: 1;
+        }
+        
+        .access-denied-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            font-family: 'Share Tech Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-button:hover {
+            background: var(--primary-color);
+            color: #000;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 0, 0.03) 2px,
+                rgba(0, 255, 0, 0.03) 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .glitch-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 48%,
+                rgba(0, 255, 255, 0.1) 49%,
+                rgba(0, 255, 255, 0.1) 51%,
+                transparent 52%
+            );
+            animation: glitch-scan 2s linear infinite;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        @keyframes glitch-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .terminal-overlay {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 15px;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--primary-color);
+            z-index: 1000;
+            max-width: 300px;
+        }
+        
+        .terminal-text {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+        
+        .blinking-cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="access-denied-container">
+        <img src="image/it/ad.png" alt="ACCESS DENIED" class="access-denied-image">
+    </div>
+    
+    <div class="scanlines"></div>
+    <div class="glitch-effect"></div>
+    
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Main
+    </a>
+    
+    <div class="terminal-overlay">
+        <div class="terminal-text">$ system_status: LOCKED</div>
+        <div class="terminal-text">$ access_level: DENIED</div>
+        <div class="terminal-text">$ reason: UNAUTHORIZED_ACCESS</div>
+        <div class="terminal-text">$ return_to: <a href="index.html" style="color: var(--primary-color);">index.html</a></div>
+        <div class="terminal-text blinking-cursor">_</div>
+    </div>
+    
+    <script>
+        // Add some terminal-like typing effect
+        const terminalTexts = document.querySelectorAll('.terminal-text');
+        let currentIndex = 0;
+        
+        function typeText(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            const timer = setInterval(() => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(timer);
+                }
+            }, speed);
+        }
+        
+        // Add some glitch effects
+        function addGlitchEffect() {
+            const image = document.querySelector('.access-denied-image');
+            setInterval(() => {
+                if (Math.random() < 0.1) {
+                    image.style.filter = 'hue-rotate(180deg) contrast(1.5)';
+                    setTimeout(() => {
+                        image.style.filter = 'none';
+                    }, 100);
+                }
+            }, 2000);
+        }
+        
+        // Initialize effects
+        addGlitchEffect();
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.key === 'Backspace') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
