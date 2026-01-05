@@ -247,7 +247,6 @@
                             id="adminPassword" 
                             class="form-input" 
                             placeholder="Enter the sudo password..."
-                            autocomplete="off"
                             required
                         >
                     </div>
@@ -260,13 +259,11 @@
                         Access Denied. Invalid credentials.
                     </div>
                     
-                    <!-- Hidden hint for developers -->
+                    
                     <div style="display: none;" id="devHint">
-                        <!-- Hint: Check the source code for the password -->
+                        
                         <span style="color: #00ff00; font-size: 10px; opacity: 0.3;">
-                            // TODO: Move password to environment variables
-                            // Current password is hardcoded for demo purposes
-                            // Hint: Look in the JavaScript section
+                            
                         </span>
                     </div>
                     
@@ -279,7 +276,7 @@
     <script>
        
 
-        const ADMIN_PASSWORD = window.ENV?.ADMIN_PASSWORD || "nepal123";
+        const ADMIN_PASSWORD = window.ENV?.ADMIN_PASSWORD || "root";
         const MAX_LOGIN_ATTEMPTS = parseInt(window.ENV?.MAX_LOGIN_ATTEMPTS || "5");
         const LOCKOUT_DURATION = parseInt(window.ENV?.LOCKOUT_DURATION || "100");
         
