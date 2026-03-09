@@ -1046,7 +1046,16 @@ html {
     display: none;
 }
 .certificate-item.show {
-    display: block;
+    /* use flex column so image stays on top and details stretch to fill
+       this makes all visible cards equal height in the grid */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* let details grow so cards align height-wise */
+.certificate-details {
+    flex: 1 1 auto;
 }
 
 #back-to-top {
