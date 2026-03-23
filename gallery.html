@@ -3,72 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery - Angad Thapa</title>
+    <title>Gallery | Know_Angad</title>
+    <meta name="description" content="Photo gallery of Angad Thapa — hackathons, events, and memorable moments.">
+    <meta property="og:title" content="Gallery | Know_Angad">
+    <meta property="og:description" content="Photo gallery — hackathons, events, and memorable moments.">
     <link rel="icon" type="image/png" href="image/it/favicon.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <div class="logo" onclick="window.location.href='index.html'">&lt;AT/&gt;</div>
-        <div class="hamburger">
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Home — Angad Thapa">&lt;AT/&gt;</a>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
-        </div>
+        </button>
         <ul class="nav-links">
             <li><a href="index.html">HOME</a></li>
+            <li><a href="skills.html">SKILLS</a></li>
+            <li><a href="project.html">PROJECTS</a></li>
             <li><a href="certificate.html">CERTIFICATES</a></li>
             <li><a href="blog.html">BLOG</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
         </ul>
     </nav>
-    <section id="gallery">
-        <div class="section-container">
-            <h2 class="section-title">./gallery</h2>
-            <div class="gallery-grid">
-                
-                <div class="gallery-item">
-                    <a href="image/participation/team.jpg" target="_blank">  
-                    <img src="image/participation/team.jpg" alt="Photo 1">
-                    </a>
-                    <div >Utec hackathone </div>
-                </div>
-                <div class="gallery-item">
-                    <a href="image/participation/quiz.jpg" target="_blank">
-                    <img src="image/participation/quiz.jpg" alt="Photo 2">
-                    </a>
-                    <div>IT quiz 2024/Forbes</div>
-                </div>
-                
-                <!-- Add more gallery items as needed below for long image-->
-            </div>
-        </div>
-    </section>
-    
-<script src="main.js"></script>
 
-<footer class="footer">
-            <div class="social-links">
-            <a href="https://github.com/Angad-Thapa26" target="_blank" class="social-link">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" class="social-link">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://www.facebook.com/makuraz.hi.angad/" target="_blank" class="social-link">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.instagram.com/makuraz_angad/" target="_blank" class="social-link">
-                <i class="fab fa-instagram"></i>
-            </a>
+    <main>
+        <section id="gallery">
+            <div class="section-container">
+                <h2 class="section-title">./gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <a href="image/participation/team.jpg" target="_blank" rel="noopener">
+                            <img src="image/participation/team.jpg" alt="Team photo at U-tec Beta Hackathon 2024" loading="lazy" width="600" height="400">
+                        </a>
+                        <div class="gallery-item-title">U-tec Hackathon</div>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="image/participation/quiz.jpg" target="_blank" rel="noopener">
+                            <img src="image/participation/quiz.jpg" alt="IT Quiz 2024 at Forbes College" loading="lazy" width="600" height="400">
+                        </a>
+                        <div class="gallery-item-title">IT Quiz 2024 / Forbes</div>
+                    </div>
+                </div>
             </div>
-            <div class="copyright">
-            <p>&copy; 2025 ANGAD THAPA. All rights reserved.</p>
-            <p class="hacker-text">[ Do I L00k ugly ->!NO  ]</p>
-            <p> Jan-4 2031</p>
-            </div>
-</footer>
-       
+        </section>
+    </main>
+
+    <button id="back-to-top" title="Back to Top" aria-label="Scroll back to top">&#8593;</button>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/Angad-Thapa26" target="_blank" rel="noopener" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/makuraz.hi.angad/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/makuraz_angad/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="copyright-year"></span> ANGAD THAPA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
 </body>
 </html>

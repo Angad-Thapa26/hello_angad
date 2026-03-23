@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://angadthapa.com.np/sitemap.xml

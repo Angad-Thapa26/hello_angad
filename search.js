@@ -1,53 +1,64 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const vlogPosts = document.querySelectorAll('.vlog-post');
-    const tocList = document.getElementById('toc-list');
+document.addEventListener("DOMContentLoaded", function () {
+    // ===========================
+    // Blog Search & TOC
+    // ===========================
+    var searchInput = document.getElementById("search-input");
+    var vlogPosts = document.querySelectorAll(".vlog-post");
+    var tocList = document.getElementById("toc-list");
 
-    // Populate table of contents
-    vlogPosts.forEach((post, index) => {
-        const title = post.querySelector('.section-title').textContent;
-        const tocItem = document.createElement('li');
-        tocItem.textContent = title;
-        tocItem.addEventListener('click', () => {
-            post.scrollIntoView({ behavior: 'smooth' });
+    if (tocList && vlogPosts.length > 0) {
+        vlogPosts.forEach(function (post) {
+            var titleEl = post.querySelector(".section-title");
+            if (!titleEl) return;
+            var title = titleEl.textContent;
+            var tocItem = document.createElement("li");
+            tocItem.textContent = title;
+            tocItem.addEventListener("click", function () {
+                post.scrollIntoView({ behavior: "smooth" });
+            });
+            tocList.appendChild(tocItem);
         });
-        tocList.appendChild(tocItem);
-    });
+    }
 
-    // Filter vlog posts based on search input
-    searchInput.addEventListener('input', function() {
-        const filter = searchInput.value.toLowerCase();
-        vlogPosts.forEach(post => {
-            const title = post.querySelector('.section-title').textContent.toLowerCase();
-            if (title.includes(filter)) {
-                post.style.display = '';
-            } else {
-                post.style.display = 'none';
-            }
-        });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const certificateItems = document.querySelectorAll('.certificate-item');
-
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Remove active class from all buttons
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            // Add active class to clicked button
-            button.classList.add('active');
-
-            const category = button.getAttribute('data-category');
-
-            certificateItems.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.classList.add('show');
-                } else {
-                    item.classList.remove('show');
-                }
+    if (searchInput && vlogPosts.length > 0) {
+        searchInput.addEventListener("input", function () {
+            var filter = searchInput.value.toLowerCase();
+            vlogPosts.forEach(function (post) {
+                var titleEl = post.querySelector(".section-title");
+                if (!titleEl) return;
+                var title = titleEl.textContent.toLowerCase();
+                post.style.display = title.includes(filter) ? "" : "none";
             });
         });
-    });
+    }
+
+    // ===========================
+    // Certificate Category Filter
+    // ===========================
+    var categoryButtons = document.querySelectorAll(".category-btn");
+    var certificateItems = document.querySelectorAll(".certificate-item");
+
+    if (categoryButtons.length > 0 && certificateItems.length > 0) {
+        categoryButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                categoryButtons.forEach(function (btn) {
+                    btn.classList.remove("active");
+                });
+                button.classList.add("active");
+
+                var category = button.getAttribute("data-category");
+
+                certificateItems.forEach(function (item) {
+                    if (
+                        category === "all" ||
+                        item.getAttribute("data-category") === category
+                    ) {
+                        item.classList.add("show");
+                    } else {
+                        item.classList.remove("show");
+                    }
+                });
+            });
+        });
+    }
 });

@@ -1,31 +1,41 @@
-const btn = document.getElementById('button');
-const statusMessage = document.getElementById('status');
+document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("contact-form");
+    var btn = document.getElementById("button");
+    var statusMessage = document.getElementById("status");
 
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
+    if (!form || !btn || !statusMessage) return;
 
-    btn.value = 'Sending...';
-    btn.disabled = true; // Disable the button
-    statusMessage.textContent = 'Sending...';
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const serviceID = 'default_service';
-    const templateID = 'template_5vya6ni';
+        btn.textContent = "Sending...";
+        btn.disabled = true;
+        statusMessage.textContent = "Sending...";
 
-    emailjs.sendForm(serviceID, templateID, this)
-        .then(() => {
-            btn.value = 'Send Email';
-            statusMessage.textContent = 'Message Sent!';
-            setTimeout(() => {
-                btn.disabled = false; // Re-enable the button after 2 minutes
-                statusMessage.textContent = '';
-            }, 120000); // 2 minutes in milliseconds
-        }, (err) => {
-            btn.value = 'Send Email';
-            statusMessage.textContent = 'Failed to send message. Please try again.';
-            setTimeout(() => {
-                btn.disabled = false; // Re-enable the button after 2 minutes
-                statusMessage.textContent = '';
-            }, 120000); // 2 minutes in milliseconds
-            alert(JSON.stringify(err));
-        });
+        var serviceID = "default_service";
+        var templateID = "template_5vya6ni";
+
+        emailjs
+            .sendForm(serviceID, templateID, form)
+            .then(function () {
+                btn.textContent = "Send Message";
+                statusMessage.textContent = "Message sent successfully!";
+                statusMessage.style.color = "#00ff00";
+                form.reset();
+                setTimeout(function () {
+                    btn.disabled = false;
+                    statusMessage.textContent = "";
+                }, 5000);
+            })
+            .catch(function () {
+                btn.textContent = "Send Message";
+                statusMessage.textContent =
+                    "Failed to send message. Please try again.";
+                statusMessage.style.color = "#ff5f56";
+                setTimeout(function () {
+                    btn.disabled = false;
+                    statusMessage.textContent = "";
+                }, 5000);
+            });
+    });
 });
