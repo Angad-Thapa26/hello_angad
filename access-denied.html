@@ -362,6 +362,7 @@
                     'clear - Clear terminal output',
                     'whoami - Show current user',
                     'ls - List files ',
+                    'cat flag.txt - Display a hidden message',
                     'pwd - Show current directory',
                     'exit - Return to main page',
                     'hack - Attempt system hack ',
@@ -405,6 +406,11 @@
             },
             'pwd': () => {
                 return ['/restricted/access_denied'];
+            },
+            'cat flag.txt': () => {
+                return [
+                    "amhhbmRhe3lvdV9yZWFjaGVkIF9zYWdhcm1hdGhhJ3NfdHVwcG99"
+                ];
             },
             'exit': () => {
                 window.location.href = 'index.html';
