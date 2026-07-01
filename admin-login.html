@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
     <script src="load-env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-sha3@0.8.0/build/sha3.min.js"></script>
     <style>
         .login-container {
             min-height: 100vh;
@@ -233,10 +234,7 @@
                 <div class="terminal-title">admin@angad:~$ sudo su -</div>
             </div>
             
-            <!-- Subtle hint in terminal style -->
-            <div style="color: #00ff00; font-family: 'Fira Code', monospace; font-size: 11px; margin-bottom: 15px; opacity: 0.6; text-align: center;">
-                <span style="color: #00ff41;">$</span> Be INSPECTOR Chingum .
-            </div>
+
             
             <div class="login-form">
                 <form id="adminForm">
@@ -276,7 +274,7 @@
     <script>
        
 
-        const ADMIN_PASSWORD = window.ENV?.ADMIN_PASSWORD || "root";
+        const ADMIN_PASSWORD_HASH = "425636771130774a6f05910db86b87d3d50d9b6c99af33cf4ff5b65c9ff3f5ca";
         const MAX_LOGIN_ATTEMPTS = parseInt(window.ENV?.MAX_LOGIN_ATTEMPTS || "5");
         const LOCKOUT_DURATION = parseInt(window.ENV?.LOCKOUT_DURATION || "100");
         
@@ -373,17 +371,18 @@
             
             const password = document.getElementById('adminPassword').value;
             const errorMessage = document.getElementById('errorMessage');
+            const passwordHash = sha3_256(password);
             
-            if (password === ADMIN_PASSWORD) {
+            if (passwordHash === ADMIN_PASSWORD_HASH) {
                 // Success - reset failed attempts and redirect
                 failedAttempts = 0;
                 errorMessage.textContent = "Access Granted! Redirecting...";
                 errorMessage.style.color = "#00ff00";
                 errorMessage.classList.add('show');
+                sessionStorage.setItem('angad_admin_authenticated', 'true');
                 
                 setTimeout(() => {
-                    // Redirect to admin dashboard
-                    window.location.href = 'access-denied.html';
+                    window.location.href = 'admin-portal.html';
                 }, 1500);
             } else {
                 // Failed attempt

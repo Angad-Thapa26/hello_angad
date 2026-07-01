@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates | Know_Angad</title>
-    <meta name="description" content="Certificates and credentials earned by Angad Thapa in cybersecurity, networking, and professional development.">
-    <meta property="og:title" content="Certificates | Know_Angad">
-    <meta property="og:description" content="Certificates and credentials in cybersecurity, networking, and more.">
+    <title>CTF | Know_Angad</title>
+    <meta name="description" content="Capture-the-flag challenges by Angad Thapa, with hashed flag verification and resource-based puzzles.">
+    <meta property="og:title" content="CTF | Know_Angad">
+    <meta property="og:description" content="Capture-the-flag challenges, clues, and resources.">
     <link rel="icon" type="image/png" href="image/it/favicon.png">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -32,34 +32,30 @@
             <li><a href="index.html">HOME</a></li>
             <li><a href="skills.html">SKILLS</a></li>
             <li><a href="project.html">PROJECTS</a></li>
-            <li><a href="ctf.html">CTF</a></li>
-            <li><a href="blog.html">BLOG</a></li>
+            <li><a href="certificate.html">CERTIFICATES</a></li>
             <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="blog.html">BLOG</a></li>
             <li><a href="index.html#contact">CONTACT</a></li>
         </ul>
     </nav>
 
     <main>
-        <section id="certificates-wall">
+        <section id="ctf-challenges">
             <div class="section-container">
-                <h2 class="section-title">./wall_of_cert</h2>
-
-                <div class="category-buttons">
-                    <button class="category-btn active" data-category="all">All Certificates</button>
-                    <button class="category-btn" data-category="ach">Achievements</button>
-                    <button class="category-btn" data-category="course">Certifications</button>
-                    <button class="category-btn" data-category="ack">Acknowledgement</button>
+                <h2 class="section-title">./ctf_lab <span class="coming-soon-badge">Live</span></h2>
+                <div class="terminal-window ctf-intro-window">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="terminal-content">
+                        <p>> user@angad:~$ cat ctf_readme.txt</p>
+                        <p>Each challenge includes a description, resource notes, and a flag submission box. Submit the exact flag to solve the challenge.</p>
+                    </div>
                 </div>
 
-                <div class="certificates-wall-grid" data-certificate-view="all"></div>
-
-                <div class="view-all-container">
-                    <p>View my digital credentials on Credly:
-                        <a href="https://www.credly.com/users/angad-thapa" target="_blank" rel="noopener" class="email-link">
-                            <img src="image/certification/credly.png" alt="Credly digital credentials badge" loading="lazy" width="40" height="40" style="vertical-align: middle; margin-left: 8px;">
-                        </a>
-                    </p>
-                </div>
+                <div class="ctf-grid" data-ctf-view="all"></div>
             </div>
         </section>
     </main>
@@ -79,8 +75,8 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-sha3@0.8.0/build/sha3.min.js" defer></script>
+    <script src="content-manager.js" defer></script>
     <script src="main.js" defer></script>
-    <script src="certificates.js" defer></script>
-    <script src="search.js" defer></script>
 </body>
 </html>

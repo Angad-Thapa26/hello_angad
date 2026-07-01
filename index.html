@@ -48,6 +48,7 @@
             <li><a href="project.html">PROJECTS</a></li>
             <li><a href="#achievements">ACHIEVEMENTS</a></li>
             <li><a href="certificate.html">CERTIFICATES</a></li>
+            <li><a href="ctf.html">CTF</a></li>
             <li><a href="blog.html">BLOG</a></li>
             <li><a href="gallery.html">GALLERY</a></li>
             <li><a href="#contact">CONTACT</a></li>
@@ -72,16 +73,16 @@
         <section id="stats" class="stats-section">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <span class="stat-number" data-target="4">0</span>+
+                    <span class="stat-number" data-stat-source="projects" data-target="0">0</span>+
                     <span class="stat-label">Projects</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="7">0</span>+
+                    <span class="stat-number" data-stat-source="certificates" data-target="0">0</span>+
                     <span class="stat-label">Certificates</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="2">0</span>+
-                    <span class="stat-label">Hackathons</span>
+                    <span class="stat-number" data-target="5">0</span>+
+                    <span class="stat-label">Events</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" data-target="10">0</span>+
@@ -92,29 +93,66 @@
         <section id="about">
             <div class="section-container">
                 <h2 class="section-title">./about_me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <div class="terminal-window">
+                <div class="about-content about-grid">
+                    <div class="about-main">
+                        <div class="about-intro-card">
+                            <div class="about-status-row">
+                                <span class="about-status-pill">Cybersecurity</span>
+                                <span class="about-status-pill">Networking</span>
+                                <span class="about-status-pill">Hands-on builder</span>
+                            </div>
+                            <h3>Learning by building, leading, and breaking things on purpose.</h3>
+                            <p>
+                                I’m Angad Thapa, a BCS student focused on networking and cybersecurity. I like turning ideas into working systems, testing how they fail, and using those lessons to build something more useful.
+                            </p>
+                            <p>
+                                My work mixes technical curiosity, community leadership, and practical problem solving. I use generative AI as a force multiplier, but I still care about understanding the fundamentals behind every tool I use.
+                            </p>
+                        </div>
+
+                        <div class="terminal-window about-terminal">
                             <div class="terminal-header">
                                 <span class="dot red"></span>
                                 <span class="dot yellow"></span>
                                 <span class="dot green"></span>
                             </div>
                             <div class="terminal-content">
-                                <p>> user@angad:~$ cat about.txt</p>
-                                <p>Hi, I'm Angad Thapa - a passionate learner in the field of technology, currently pursuing my undergraduate degree in BCS with a specialization in Networking and Cybersecurity. I thrive on solving real-world problems using innovative approaches, and I leverage generative AI to accelerate my learning and productivity.</p>
+                                <p>> user@angad:~$ cat profile.txt</p>
+                                <p>Curious about how networks behave, how systems can be secured, and how technology can be used to solve everyday problems.</p>
                                 <p>> user@angad:~$ cat education.txt</p>
                                 <ul class="terminal-list">
                                     <li>BCS (Networking &amp; Cyber Security) - Forbes College [2024-Present]</li>
                                     <li>Science (Computer) - Narayani Model Secondary School [2023]</li>
                                     <li>SEE - Small Heaven Model School [2021]</li>
                                 </ul>
-                                <p>> user@angad:~$ cat experiences.md</p>
-                                <p>currently facilitating as the President of Cyber Crime and Security Awareness club at Bharatpur Chitwan</p>
-                                <p>awaring students about digital thread and cybersecurity skill by organizing workshop and awareness club with club members.</p>
+                                <p>> user@angad:~$ cat leadership.md</p>
+                                <p>President of the Cyber Crime and Security Awareness Club at Bharatpur, Chitwan.</p>
+                                <p>Focused on workshops, awareness sessions, and helping students build stronger digital habits.</p>
                             </div>
                         </div>
                     </div>
+
+                    <aside class="about-sidebar">
+                        <div class="about-fact-card">
+                            <h3>Quick Facts</h3>
+                            <ul class="about-fact-list">
+                                <li><span>Focus</span><strong>Cybersecurity &amp; Networking</strong></li>
+                                <li><span>Style</span><strong>Builder + learner</strong></li>
+                                <li><span>Toolkit</span><strong>Linux, AI, labs, and curiosity</strong></li>
+                                <li><span>Mission</span><strong>Make tech useful, practical, and secure</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="about-fact-card accent">
+                            <h3>What I Enjoy</h3>
+                            <ul class="about-chip-list">
+                                <li>Hands-on labs</li>
+                                <li>Capture-the-flag thinking</li>
+                                <li>Teaching and mentoring</li>
+                                <li>Building small tools that save time</li>
+                            </ul>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </section>
@@ -181,40 +219,37 @@
         <section id="certificates">
             <div class="section-container">
                 <h2 class="section-title">./certificates</h2>
-                <div class="certificates-wall-grid">
-                    <div class="certificate-item show" data-category="ach">
-                        <a href="image/ack/ack-hac2.jpeg" target="_blank" rel="noopener">
-                            <img src="image/ack/ack-hac2.jpeg" alt="Runner-up award certificate from U-tec Beta Hackathon 2024" loading="lazy" width="400" height="280">
-                        </a>
-                        <div class="certificate-details">
-                            <h3>Runner-up Award - U-tec Hackathon</h3>
-                            <p>Project: Traditional shopping adapted with digital technologies, connecting local businesses with local consumers.</p>
-                            <p>Issuing Organization: U-tec</p>
-                        </div>
-                    </div>
-                    <div class="certificate-item show" data-category="course">
-                        <a href="https://learn.mastermindassurance.com/certificates/lr8b8xycsm" target="_blank" rel="noopener">
-                            <img src="image/certification/leadAuditor.png" alt="Lead Auditor ISO 27001:2022 certification from Mastermind" loading="lazy" width="400" height="280">
-                        </a>
-                        <div class="certificate-details">
-                            <h3>Lead Auditor ISO 27001:2022</h3>
-                            <p>Skills: ISMS, Risk Assessment, Internal Audit, ISO/IEC 27001, ISO/IEC 27006</p>
-                            <p>Issuing Organization: Mastermind</p>
-                        </div>
-                    </div>
-                    <div class="certificate-item show" data-category="ack">
-                        <a href="image/participation/par-ncc.jpeg" target="_blank" rel="noopener">
-                            <img src="image/participation/par-ncc.jpeg" alt="NCC 100-day training certificate from Nepal Army" loading="lazy" width="400" height="280">
-                        </a>
-                        <div class="certificate-details">
-                            <h3>100-Day Personal Development Training</h3>
-                            <p>Patriotism and self-building on leadership and discipline by Nepal Army.</p>
-                            <p>Issuing Organization: National Cadet Corps, Nepal Army</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="certificates-wall-grid" data-certificate-view="featured" data-certificate-limit="3"></div>
                 <div class="view-more-container">
                     <a href="certificate.html" class="view-more-btn">View All Certificates</a>
+                </div>
+            </div>
+        </section>
+        <section id="featured-highlights">
+            <div class="section-container">
+                <h2 class="section-title">./featured_highlights</h2>
+                <div class="featured-highlights-grid">
+                    <article class="featured-panel">
+                        <div class="featured-panel-head">
+                            <h3>Featured Gallery</h3>
+                            <a href="gallery.html" class="email-link">View Gallery</a>
+                        </div>
+                        <div class="gallery-grid featured-mini-grid" data-gallery-view="featured" data-gallery-limit="2"></div>
+                    </article>
+                    <article class="featured-panel">
+                        <div class="featured-panel-head">
+                            <h3>Featured Blog</h3>
+                            <a href="blog.html" class="email-link">Read Blog</a>
+                        </div>
+                        <div class="blog-highlight-grid" data-blog-view="featured" data-content-mode="teaser" data-blog-limit="2"></div>
+                    </article>
+                    <article class="featured-panel">
+                        <div class="featured-panel-head">
+                            <h3>Featured CTF</h3>
+                            <a href="ctf.html" class="email-link">Open CTF</a>
+                        </div>
+                        <div class="ctf-highlight-grid" data-ctf-view="featured" data-content-mode="teaser" data-ctf-limit="2"></div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -311,20 +346,19 @@
                 <h2 class="section-title">./contact_me</h2>
                 <div class="contact-content">
                     <div class="contact-info">
-                        <div class="terminal-window">
-                            <div class="terminal-header">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
+                        <div class="contact-card">
+                            <div class="contact-card-kicker">Want to collaborate?</div>
+                            <h3>Let’s build, fix, or plan something useful.</h3>
+                            <p>Reach out for projects, workshops, CTFs, or cybersecurity discussions.</p>
+                            <div class="contact-card-actions">
+                                <a href="mailto:mail@angadthapa.com.np" class="cta-btn cta-primary">Email Me</a>
+                                <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" rel="noopener" class="cta-btn cta-secondary">LinkedIn</a>
                             </div>
-                            <div class="terminal-content">
-                                <p>> user@angad:~$ cat contact.txt</p>
-                                <p>Email: <a href="mailto:mail@angadthapa.com.np" class="email-link">mail@angadthapa.com.np</a></p>
-                                <p>Mail To President: <a href="mailto:president.ccsa@forbescollege.edu.np" class="email-link">president.ccsa@forbescollege.edu.np</a></p>
-                                <p>Location: Bharatpur, Chitwan</p>
-                                <p>Phone: +977 9821894320</p>
-                                
-                            </div>
+                            <ul class="contact-quick-list">
+                                <li>Bharatpur, Chitwan</li>
+                                <li>Open to workshops and collaborations</li>
+                                <li>mail@angadthapa.com.np</li>
+                            </ul>
                         </div>
                     </div>
                     <form id="contact-form" class="contact-form">
@@ -364,6 +398,7 @@
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+    <script src="certificates.js" defer></script>
     <script src="main.js" defer></script>
     <script src="email.js" defer></script>
 </body>

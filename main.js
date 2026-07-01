@@ -74,37 +74,106 @@ document.addEventListener("DOMContentLoaded", function () {
     var statNumbers = document.querySelectorAll(".stat-number");
     if (statNumbers.length > 0) {
         var statsAnimated = false;
-        var statsObserver = new IntersectionObserver(
-            function (entries) {
-                entries.forEach(function (entry) {
-                    if (entry.isIntersecting && !statsAnimated) {
-                        statsAnimated = true;
-                        animateCounters();
-                    }
-                });
-            },
-            { threshold: 0.5 }
-        );
-
         var statsSection = document.getElementById("stats");
-        if (statsSection) {
-            statsObserver.observe(statsSection);
-        }
-    }
+        var statsObserver = null;
 
-    function animateCounters() {
-        statNumbers.forEach(function (counter) {
-            var target = parseInt(counter.getAttribute("data-target"), 10);
-            var current = 0;
-            var increment = Math.max(1, Math.floor(target / 40));
-            var timer = setInterval(function () {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                counter.textContent = current;
-            }, 50);
+        function getCertificateCount() {
+            if (window.KnowAngadCertificates && typeof window.KnowAngadCertificates.getAllCertificates === "function") {
+                return window.KnowAngadCertificates.getAllCertificates().length;
+            }
+
+            return document.querySelectorAll(".certificate-item").length;
+        }
+
+        function getProjectCount() {
+            if (window.KnowAngadPortfolioStats && typeof window.KnowAngadPortfolioStats.projectCount === "number") {
+                return Promise.resolve(window.KnowAngadPortfolioStats.projectCount);
+            }
+
+            if (document.body && document.body.getAttribute("data-page") === "projects") {
+                return Promise.resolve(document.querySelectorAll("main > section[id]").length);
+            }
+
+            if (typeof fetch !== "function" || typeof DOMParser === "undefined") {
+                return Promise.resolve(document.querySelectorAll("#projects .project-card").length);
+            }
+
+            return fetch("project.html", { cache: "no-store" })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error("Unable to load project portfolio page.");
+                    }
+
+                    return response.text();
+                })
+                .then(function (html) {
+                    var parser = new DOMParser();
+                    var parsedDocument = parser.parseFromString(html, "text/html");
+                    var projectSections = parsedDocument.querySelectorAll("main > section[id]");
+                    var fetchedCount = projectSections.length;
+
+                    return fetchedCount > 0 ? fetchedCount : document.querySelectorAll("#projects .project-card").length;
+                })
+                .catch(function () {
+                    return document.querySelectorAll("#projects .project-card").length;
+                });
+        }
+
+        function resolveStatTarget(counter) {
+            var source = counter.getAttribute("data-stat-source");
+
+            if (source === "certificates") {
+                return Promise.resolve(getCertificateCount());
+            }
+
+            if (source === "projects") {
+                return getProjectCount();
+            }
+
+            var fallbackTarget = parseInt(counter.getAttribute("data-target"), 10);
+            return Promise.resolve(Number.isNaN(fallbackTarget) ? 0 : fallbackTarget);
+        }
+
+        function animateCounters() {
+            statNumbers.forEach(function (counter) {
+                var target = parseInt(counter.getAttribute("data-target"), 10);
+                var current = 0;
+                var increment = Math.max(1, Math.floor(target / 40));
+                var timer = setInterval(function () {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = current;
+                }, 50);
+            });
+        }
+
+        Promise.all(Array.prototype.map.call(statNumbers, function (counter) {
+            return resolveStatTarget(counter).then(function (target) {
+                var resolvedTarget = Math.max(0, parseInt(target, 10) || 0);
+                counter.setAttribute("data-target", String(resolvedTarget));
+                counter.textContent = "0";
+            });
+        })).then(function () {
+            statsObserver = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting && !statsAnimated) {
+                            statsAnimated = true;
+                            animateCounters();
+                        }
+                    });
+                },
+                { threshold: 0.5 }
+            );
+
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            } else {
+                animateCounters();
+            }
         });
     }
 

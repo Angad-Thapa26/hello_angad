@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal | Know_Angad</title>
+    <meta name="description" content="Private admin portal for managing certificates, gallery images, blog posts, and CTF challenges on the Know_Angad portfolio.">
+    <link rel="icon" type="image/png" href="image/it/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-sha3@0.8.0/build/sha3.min.js"></script>
+        <script>
+            if (sessionStorage.getItem('angad_admin_authenticated') !== 'true') {
+                window.location.replace('admin-login.html');
+            }
+        </script>
+</head>
+<body>
+    <div class="night" aria-hidden="true">
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+        <div class="shooting_star"></div>
+    </div>
+    <div id="particles-js" aria-hidden="true"></div>
+
+    <nav aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Home - Angad Thapa">&lt;AT/&gt;</a>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="skills.html">SKILLS</a></li>
+            <li><a href="project.html">PROJECTS</a></li>
+            <li><a href="certificate.html">CERTIFICATES</a></li>
+            <li><a href="ctf.html">CTF</a></li>
+            <li><a href="blog.html">BLOG</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+        </ul>
+    </nav>
+
+    <main class="admin-portal-page">
+        <div class="admin-portal-shell">
+            <div class="admin-portal-hero">
+                <div>
+                    <div class="admin-portal-kicker">secure certificate control</div>
+                    <h1>Admin Portal</h1>
+                    <p>Add certificate images, names, descriptions, and credential links. New entries appear on the certification page immediately in this browser.</p>
+                </div>
+                <div class="admin-portal-actions">
+                    <button type="button" id="portal-export" class="portal-button"><i class="fas fa-file-export"></i> Export Content</button>
+                    <a href="certificate.html" class="portal-button secondary"><i class="fas fa-arrow-left"></i> Back to Certificates</a>
+                    <button type="button" id="portal-logout" class="portal-button"><i class="fas fa-right-from-bracket"></i> Logout</button>
+                </div>
+            </div>
+
+            <div class="portal-stats">
+                <div class="portal-stat">
+                    <strong id="certificate-count">0</strong>
+                    <span>Custom Certificates</span>
+                </div>
+                <div class="portal-stat">
+                    <strong id="gallery-count">0</strong>
+                    <span>Custom Gallery Images</span>
+                </div>
+                <div class="portal-stat">
+                    <strong id="blog-count">0</strong>
+                    <span>Custom Blog Posts</span>
+                </div>
+                <div class="portal-stat">
+                    <strong id="ctf-count">0</strong>
+                    <span>CTF Challenges</span>
+                </div>
+                <div class="portal-stat">
+                    <strong>Live</strong>
+                    <span>Instant Updates</span>
+                </div>
+                <div class="portal-stat">
+                    <strong>Local</strong>
+                    <span>Browser Storage</span>
+                </div>
+            </div>
+
+            <div class="admin-portal-grid">
+                <section class="portal-card">
+                    <h2>Add Certificate</h2>
+                    <p>Use a compressed image if possible. Uploaded images are stored in browser storage.</p>
+                    <form id="certificate-form" class="portal-form">
+                        <div class="portal-field">
+                            <label for="certificate-title">Certificate Name</label>
+                            <input type="text" id="certificate-title" placeholder="Lead Auditor ISO 27001:2022" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="certificate-organization">Issuing Organization</label>
+                            <input type="text" id="certificate-organization" placeholder="Mastermind" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="certificate-category">Category</label>
+                            <select id="certificate-category" required>
+                                <option value="course">Certification</option>
+                                <option value="ach">Achievement</option>
+                                <option value="ack">Acknowledgement</option>
+                            </select>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="certificate-description">Description</label>
+                            <textarea id="certificate-description" placeholder="Add the skills, workshop details, or achievement summary." required></textarea>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="certificate-image">Certificate Image</label>
+                            <input type="file" id="certificate-image" accept="image/*" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="certificate-link">Credential URL</label>
+                            <input type="url" id="certificate-link" placeholder="https://example.com/credential">
+                        </div>
+
+                        <div class="portal-actions">
+                            <button type="submit" class="portal-button portal-submit"><i class="fas fa-plus"></i> Publish Certificate</button>
+                            <button type="button" id="clear-certificates" class="portal-button portal-reset"><i class="fas fa-trash-can"></i> Clear Custom Certificates</button>
+                        </div>
+
+                        <div id="portal-status" class="portal-status" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <aside class="portal-card">
+                    <h2>Live Preview</h2>
+                    <p>This mirrors the card style used on the certification wall.</p>
+                    <div class="admin-preview-card">
+                        <img id="certificate-preview-image" alt="Certificate preview">
+                        <div class="certificate-details">
+                            <h3 id="certificate-preview-title">Certificate title</h3>
+                            <p id="certificate-preview-meta">Issuing organization - course</p>
+                            <p id="certificate-preview-description">Add a short description to preview the card.</p>
+                            <p><a id="certificate-preview-link" class="email-link" href="#" target="_blank" rel="noopener">Open credential</a></p>
+                        </div>
+                    </div>
+
+                    <div class="admin-list-header">
+                        <h2>Published Certificates</h2>
+                        <button id="clear-certificates-inline" type="button" class="category-btn">Refresh</button>
+                    </div>
+                    <div id="certificate-admin-list" class="admin-certificate-list"></div>
+                </aside>
+            </div>
+
+            <div class="admin-portal-grid">
+                <section class="portal-card">
+                    <h2>Add Gallery Image</h2>
+                    <p>Upload a gallery image and it will appear on the gallery page immediately in this browser.</p>
+                    <form id="gallery-form" class="portal-form">
+                        <div class="portal-field">
+                            <label for="gallery-title">Image Title</label>
+                            <input type="text" id="gallery-title" placeholder="U-tec Hackathon" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="gallery-caption">Caption</label>
+                            <input type="text" id="gallery-caption" placeholder="Hackathon team photo">
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="gallery-category">Category</label>
+                            <select id="gallery-category">
+                                <option value="event">Event</option>
+                                <option value="hackathon">Hackathon</option>
+                                <option value="workshop">Workshop</option>
+                                <option value="personal">Personal</option>
+                            </select>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="gallery-image">Gallery Image</label>
+                            <input type="file" id="gallery-image" accept="image/*" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="gallery-link">Image Link</label>
+                            <input type="url" id="gallery-link" placeholder="https://example.com/original-image">
+                        </div>
+
+                        <label class="portal-check">
+                            <input type="checkbox" id="gallery-featured">
+                            <span>Featured on homepage</span>
+                        </label>
+
+                        <div class="portal-actions">
+                            <button type="submit" class="portal-button portal-submit"><i class="fas fa-upload"></i> Publish Image</button>
+                            <button type="button" id="clear-gallery" class="portal-button portal-reset"><i class="fas fa-trash-can"></i> Clear Custom Gallery</button>
+                        </div>
+
+                        <div id="gallery-status" class="portal-status" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <aside class="portal-card">
+                    <h2>Gallery Preview</h2>
+                    <p>This mirrors the card style used on the gallery page.</p>
+                    <div class="admin-preview-card">
+                        <img id="gallery-preview-image" alt="Gallery preview">
+                        <div class="certificate-details">
+                            <h3 id="gallery-preview-title">Image title</h3>
+                            <p id="gallery-preview-meta">Event - gallery</p>
+                            <p id="gallery-preview-caption">Add a caption to preview the card.</p>
+                            <p><a id="gallery-preview-link" class="email-link" href="#" target="_blank" rel="noopener">Open image</a></p>
+                        </div>
+                    </div>
+
+                    <div class="admin-list-header">
+                        <h2>Published Gallery Images</h2>
+                        <button id="refresh-gallery" type="button" class="category-btn">Refresh</button>
+                    </div>
+                    <div id="gallery-admin-list" class="admin-content-list"></div>
+                </aside>
+            </div>
+
+            <div class="admin-portal-grid">
+                <section class="portal-card">
+                    <h2>Add Blog Post</h2>
+                    <p>Create a blog post and it will appear on the blog page immediately in this browser.</p>
+                    <form id="blog-form" class="portal-form">
+                        <div class="portal-field">
+                            <label for="blog-title">Post Title</label>
+                            <input type="text" id="blog-title" placeholder="Journey Into Cybersecurity" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="blog-excerpt">Excerpt</label>
+                            <textarea id="blog-excerpt" placeholder="Short summary for the post."></textarea>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="blog-content">Post Content</label>
+                            <textarea id="blog-content" placeholder="Write the full blog post here." required></textarea>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="blog-image">Blog Image</label>
+                            <input type="file" id="blog-image" accept="image/*">
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="blog-image-alt">Blog Image Alt Text</label>
+                            <input type="text" id="blog-image-alt" placeholder="Optional image description">
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="blog-date">Published Date</label>
+                            <input type="text" id="blog-date" placeholder="2026-07-01">
+                        </div>
+
+                        <label class="portal-check">
+                            <input type="checkbox" id="blog-featured">
+                            <span>Featured on homepage</span>
+                        </label>
+
+                        <div class="portal-actions">
+                            <button type="submit" class="portal-button portal-submit"><i class="fas fa-pen-to-square"></i> Publish Blog Post</button>
+                            <button type="button" id="clear-blog" class="portal-button portal-reset"><i class="fas fa-trash-can"></i> Clear Custom Blog</button>
+                        </div>
+
+                        <div id="blog-status" class="portal-status" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <aside class="portal-card">
+                    <h2>Blog Preview</h2>
+                    <p>This mirrors the card style used on the blog page.</p>
+                    <div class="admin-preview-card">
+                        <img id="blog-preview-image" alt="Blog preview">
+                        <div class="certificate-details">
+                            <h3 id="blog-preview-title">Post title</h3>
+                            <p id="blog-preview-meta">Growing • blog</p>
+                            <p id="blog-preview-excerpt">Add an excerpt to preview the card.</p>
+                            <p id="blog-preview-content">Add the post content to preview the card.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-list-header">
+                        <h2>Published Blog Posts</h2>
+                        <button id="refresh-blog" type="button" class="category-btn">Refresh</button>
+                    </div>
+                    <div id="blog-admin-list" class="admin-content-list"></div>
+                </aside>
+            </div>
+
+            <div class="admin-portal-grid">
+                <section class="portal-card">
+                    <h2>Add CTF Challenge</h2>
+                    <p>Create a challenge, attach resources, and store only the hashed flag.</p>
+                    <form id="ctf-form" class="portal-form">
+                        <div class="portal-field">
+                            <label for="ctf-title">Challenge Title</label>
+                            <input type="text" id="ctf-title" placeholder="3rd Flag Recovery" required>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="ctf-difficulty">Difficulty</label>
+                            <select id="ctf-difficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="ctf-description">Challenge Description</label>
+                            <textarea id="ctf-description" placeholder="Describe the challenge objective." required></textarea>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="ctf-resource-description">Resource Description</label>
+                            <textarea id="ctf-resource-description" placeholder="Add notes, hints, or resource context." required></textarea>
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="ctf-resource-url">Resource URL</label>
+                            <input type="url" id="ctf-resource-url" placeholder="https://example.com/resource">
+                        </div>
+
+                        <div class="portal-field">
+                            <label for="ctf-flag">Flag</label>
+                            <input type="text" id="ctf-flag" placeholder="jhganda{...}" required>
+                        </div>
+
+                        <label class="portal-check">
+                            <input type="checkbox" id="ctf-featured">
+                            <span>Featured on homepage</span>
+                        </label>
+
+                        <div class="portal-actions">
+                            <button type="submit" class="portal-button portal-submit"><i class="fas fa-shield-halved"></i> Publish Challenge</button>
+                            <button type="button" id="clear-ctf" class="portal-button portal-reset"><i class="fas fa-trash-can"></i> Clear Custom CTF</button>
+                        </div>
+
+                        <div id="ctf-status" class="portal-status" aria-live="polite"></div>
+                    </form>
+                </section>
+
+                <aside class="portal-card">
+                    <h2>CTF Preview</h2>
+                    <p>This mirrors the public challenge card layout.</p>
+                    <div class="admin-ctf-preview">
+                        <div class="admin-ctf-icon">CTF</div>
+                        <div>
+                            <h3 id="ctf-preview-title">Challenge title</h3>
+                            <p id="ctf-preview-meta">Easy - challenge</p>
+                            <p id="ctf-preview-description">Add a description to preview the challenge card.</p>
+                            <p id="ctf-preview-resource">Add resource notes here.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-list-header">
+                        <h2>Published CTF Challenges</h2>
+                        <button id="refresh-ctf" type="button" class="category-btn">Refresh</button>
+                    </div>
+                    <div id="ctf-admin-list" class="admin-content-list"></div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <button id="back-to-top" title="Back to Top" aria-label="Scroll back to top">&#8593;</button>
+
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://github.com/Angad-Thapa26" target="_blank" rel="noopener" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/angad-thapa-b2408b320/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/makuraz.hi.angad/" target="_blank" rel="noopener" class="social-link" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/makuraz_angad/" target="_blank" rel="noopener" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="copyright-year"></span> ANGAD THAPA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js" defer></script>
+    <script src="certificates.js" defer></script>
+    <script src="content-manager.js" defer></script>
+    <script src="main.js" defer></script>
+    <script src="admin-portal.js" defer></script>
+</body>
+</html>
