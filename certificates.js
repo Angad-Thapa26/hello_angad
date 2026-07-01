@@ -178,6 +178,8 @@
         }
     }
 
+    var repoCertificates = null;
+
     function readCustomCertificates() {
         try {
             var rawValue = canUseStorage() ? window.localStorage.getItem(STORAGE_KEY) : window.__knowAngadCustomCertificates;
@@ -199,11 +201,18 @@
     }
 
     function getAllCertificates() {
+        // Prefer repo-backed certificates when available (from content-data.json)
+        if (repoCertificates && Array.isArray(repoCertificates)) {
+            return repoCertificates.slice();
+        }
+
         return baseCertificates.concat(readCustomCertificates());
     }
 
     function getFeaturedCertificates() {
-        return baseCertificates.filter(function (certificate) {
+        // If repo-backed certificates exist, filter those; otherwise use base list
+        var source = repoCertificates && Array.isArray(repoCertificates) ? repoCertificates : baseCertificates;
+        return source.filter(function (certificate) {
             return Boolean(certificate.featured);
         });
     }
@@ -224,6 +233,32 @@
 
         return "cert-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
     }
+    // If a centralized repo-loader provides data, use that instead of fetching here
+    function applyRepoCertificatesFromData(data) {
+        if (data && data.certificates) {
+            var section = data.certificates;
+            repoCertificates = Array.isArray(section.all)
+                ? section.all.slice()
+                : (Array.isArray(section.base) ? section.base.slice() : baseCertificates).concat(Array.isArray(section.custom) ? section.custom.slice() : []);
+            document.dispatchEvent(new CustomEvent(UPDATE_EVENT));
+        }
+    }
+
+    if (window.KnowAngadRepoData) {
+        try {
+            applyRepoCertificatesFromData(window.KnowAngadRepoData);
+        } catch (e) {
+            // ignore
+        }
+    }
+
+    document.addEventListener("know-angad:repo-loaded", function (event) {
+        try {
+            applyRepoCertificatesFromData(event && event.detail ? event.detail : null);
+        } catch (e) {
+            // ignore
+        }
+    });
 
     function addCustomCertificate(certificate) {
         var certificates = readCustomCertificates();

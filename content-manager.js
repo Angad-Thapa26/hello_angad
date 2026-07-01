@@ -212,10 +212,12 @@
             .then(function (data) {
                 setRepoContent(data);
                 document.dispatchEvent(new CustomEvent(CONTENT_UPDATE_EVENT));
+                document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
                 return repoContent;
             })
             .catch(function () {
                 repoContent = null;
+                document.dispatchEvent(new CustomEvent("know-angad:repo-load-failed"));
                 return null;
             });
 
@@ -968,4 +970,21 @@
             return createId("ctf");
         }
     };
+
+    // If another loader (repo-loader.js) supplies repo data, accept it and re-render
+    document.addEventListener("know-angad:repo-loaded", function (event) {
+        try {
+            if (event && event.detail) {
+                setRepoContent(event.detail);
+                document.dispatchEvent(new CustomEvent(CONTENT_UPDATE_EVENT));
+            }
+        } catch (e) {
+            // ignore
+        }
+    });
+
+    document.addEventListener("know-angad:repo-load-failed", function () {
+        repoContent = null;
+        document.dispatchEvent(new CustomEvent(CONTENT_UPDATE_EVENT));
+    });
 })();
