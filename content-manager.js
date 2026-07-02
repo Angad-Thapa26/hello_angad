@@ -10,6 +10,7 @@
     var CTF_UPDATE_EVENT = "know-angad:ctf-updated";
     var repoContent = null;
     var repoContentPromise = null;
+    var repoContentSource = null;
 
     var baseGalleryItems = [
         {
@@ -181,7 +182,8 @@
         };
     }
 
-    function setRepoContent(data) {
+    function setRepoContent(data, source) {
+        repoContentSource = source || repoContentSource || "fetch";
         repoContent = {
             exportedAt: data && data.exportedAt ? data.exportedAt : null,
             certificates: normalizeRepoSection(data && data.certificates, baseCertificates),
@@ -199,7 +201,7 @@
         if (window.KnowAngadRepoPromise && typeof window.KnowAngadRepoPromise.then === "function") {
             repoContentPromise = window.KnowAngadRepoPromise.then(function (data) {
                 if (data && !repoContent) {
-                    setRepoContent(data);
+                    setRepoContent(data, "loader");
                 }
 
                 return repoContent;
@@ -222,7 +224,9 @@
                 return response.json();
             })
             .then(function (data) {
-                setRepoContent(data);
+                if (repoContentSource !== "loader") {
+                    setRepoContent(data, "fetch");
+                }
                 document.dispatchEvent(new CustomEvent(CONTENT_UPDATE_EVENT));
                 document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
                 return repoContent;
@@ -987,7 +991,7 @@
     document.addEventListener("know-angad:repo-loaded", function (event) {
         try {
             if (event && event.detail) {
-                setRepoContent(event.detail);
+                setRepoContent(event.detail, "loader");
                 document.dispatchEvent(new CustomEvent(CONTENT_UPDATE_EVENT));
             }
         } catch (e) {

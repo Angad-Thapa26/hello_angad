@@ -85,6 +85,18 @@ document.addEventListener("DOMContentLoaded", function () {
             return document.querySelectorAll(".certificate-item").length;
         }
 
+        function refreshCertificateStat() {
+            statNumbers.forEach(function (counter) {
+                if (counter.getAttribute("data-stat-source") !== "certificates") {
+                    return;
+                }
+
+                var currentCount = Math.max(0, parseInt(getCertificateCount(), 10) || 0);
+                counter.setAttribute("data-target", String(currentCount));
+                counter.textContent = String(currentCount);
+            });
+        }
+
         function getProjectCount() {
             if (window.KnowAngadPortfolioStats && typeof window.KnowAngadPortfolioStats.projectCount === "number") {
                 return Promise.resolve(window.KnowAngadPortfolioStats.projectCount);
@@ -175,6 +187,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 animateCounters();
             }
         });
+
+        document.addEventListener("know-angad:repo-loaded", refreshCertificateStat);
+        document.addEventListener("know-angad:certificates-updated", refreshCertificateStat);
     }
 
     var skillBars = document.querySelectorAll(".progress");
