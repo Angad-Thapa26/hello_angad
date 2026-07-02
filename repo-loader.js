@@ -1,7 +1,28 @@
 (function () {
     var URL = "content-data.json";
+    var SNAPSHOT_KEY = "know_angad_repo_snapshot_v1";
     if (window.KnowAngadRepoPromise) {
         return;
+    }
+
+    function canUseStorage() {
+        try {
+            var testKey = "__know_angad_repo_storage_test__";
+            window.localStorage.setItem(testKey, testKey);
+            window.localStorage.removeItem(testKey);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    function readSnapshotData() {
+        try {
+            var rawValue = canUseStorage() ? window.localStorage.getItem(SNAPSHOT_KEY) : window[SNAPSHOT_KEY];
+            return rawValue ? JSON.parse(rawValue) : null;
+        } catch (error) {
+            return null;
+        }
     }
 
     function setBadge(text, ok) {
@@ -32,26 +53,36 @@
         }
     }
 
-    var p = fetch(URL, { cache: "no-store" })
-        .then(function (response) {
-            if (!response.ok) {
-                throw new Error("no content-data.json");
-            }
+    var snapshotData = readSnapshotData();
+    var p;
 
-            return response.json();
-        })
-        .then(function (data) {
-            window.KnowAngadRepoData = data;
-            document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
-            setBadge("Repo content loaded", true);
-            return data;
-        })
-        .catch(function () {
-            window.KnowAngadRepoData = null;
-            document.dispatchEvent(new CustomEvent("know-angad:repo-load-failed"));
-            setBadge("Repo content unavailable", false);
-            return null;
-        });
+    if (snapshotData) {
+        window.KnowAngadRepoData = snapshotData;
+        document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: snapshotData }));
+        setBadge("Repo content loaded from browser snapshot", true);
+        p = Promise.resolve(snapshotData);
+    } else {
+        p = fetch(URL, { cache: "no-store" })
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error("no content-data.json");
+                }
+
+                return response.json();
+            })
+            .then(function (data) {
+                window.KnowAngadRepoData = data;
+                document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
+                setBadge("Repo content loaded", true);
+                return data;
+            })
+            .catch(function () {
+                window.KnowAngadRepoData = null;
+                document.dispatchEvent(new CustomEvent("know-angad:repo-load-failed"));
+                setBadge("Repo content unavailable", false);
+                return null;
+            });
+    }
 
     window.KnowAngadRepoPromise = p;
 })();

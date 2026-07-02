@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var ctfClearButton = document.getElementById("clear-ctf");
     var ctfRefreshButton = document.getElementById("refresh-ctf");
     var exportButton = document.getElementById("portal-export");
+    var REPO_SNAPSHOT_KEY = "know_angad_repo_snapshot_v1";
 
     function downloadJson(filename, data) {
         var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
@@ -131,6 +132,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
     }
+
+    function saveRepoSnapshot() {
+        if (!window.KnowAngadCertificates || !window.KnowAngadContent) {
+            return;
+        }
+
+        try {
+            window.localStorage.setItem(REPO_SNAPSHOT_KEY, JSON.stringify(buildExportPayload()));
+        } catch (error) {
+            try {
+                window[REPO_SNAPSHOT_KEY] = JSON.stringify(buildExportPayload());
+            } catch (fallbackError) {
+                // noop
+            }
+        }
+    }
+
+    document.addEventListener("know-angad:repo-loaded", saveRepoSnapshot);
+    document.addEventListener("know-angad:content-updated", saveRepoSnapshot);
+    document.addEventListener("know-angad:certificates-updated", saveRepoSnapshot);
 
     function setStatusElement(element, message, isError) {
         if (!element) {
@@ -445,6 +466,7 @@ document.addEventListener("DOMContentLoaded", function () {
             var exportPayload = buildExportPayload();
             var timestamp = new Date().toISOString().replace(/[:.]/g, "-");
             downloadJson("know-angad-content-" + timestamp + ".json", exportPayload);
+            saveRepoSnapshot();
             setCertificateStatus("Content exported as JSON.", false);
         });
     }
@@ -737,4 +759,8 @@ document.addEventListener("DOMContentLoaded", function () {
     renderBlogList();
     renderCtfList();
     setCountValues();
+
+    if (window.KnowAngadRepoData) {
+        saveRepoSnapshot();
+    }
 });

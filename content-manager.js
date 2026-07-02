@@ -196,6 +196,18 @@
             return repoContentPromise;
         }
 
+        if (window.KnowAngadRepoPromise && typeof window.KnowAngadRepoPromise.then === "function") {
+            repoContentPromise = window.KnowAngadRepoPromise.then(function (data) {
+                if (data && !repoContent) {
+                    setRepoContent(data);
+                }
+
+                return repoContent;
+            });
+
+            return repoContentPromise;
+        }
+
         if (typeof fetch !== "function") {
             repoContentPromise = Promise.resolve(null);
             return repoContentPromise;
