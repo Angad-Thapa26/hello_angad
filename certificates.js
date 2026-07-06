@@ -200,19 +200,43 @@
         document.dispatchEvent(new CustomEvent(UPDATE_EVENT));
     }
 
+    function mergeCertificatesById(primaryList, secondaryList) {
+        var merged = [];
+        var seen = {};
+
+        (Array.isArray(primaryList) ? primaryList : []).forEach(function (certificate) {
+            if (!certificate || !certificate.id || seen[certificate.id]) {
+                return;
+            }
+
+            seen[certificate.id] = true;
+            merged.push(certificate);
+        });
+
+        (Array.isArray(secondaryList) ? secondaryList : []).forEach(function (certificate) {
+            if (!certificate || !certificate.id || seen[certificate.id]) {
+                return;
+            }
+
+            seen[certificate.id] = true;
+            merged.unshift(certificate);
+        });
+
+        return merged;
+    }
+
     function getAllCertificates() {
-        // Prefer repo-backed certificates when available (from content-data.json)
+        var customCertificates = readCustomCertificates();
+
         if (repoCertificates && Array.isArray(repoCertificates)) {
-            return repoCertificates.slice();
+            return mergeCertificatesById(repoCertificates, customCertificates);
         }
 
-        return baseCertificates.concat(readCustomCertificates());
+        return mergeCertificatesById(baseCertificates, customCertificates);
     }
 
     function getFeaturedCertificates() {
-        // If repo-backed certificates exist, filter those; otherwise use base list
-        var source = repoCertificates && Array.isArray(repoCertificates) ? repoCertificates : baseCertificates;
-        return source.filter(function (certificate) {
+        return getAllCertificates().filter(function (certificate) {
             return Boolean(certificate.featured);
         });
     }

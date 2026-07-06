@@ -54,35 +54,37 @@
     }
 
     var snapshotData = readSnapshotData();
-    var p;
 
-    if (snapshotData) {
-        window.KnowAngadRepoData = snapshotData;
-        document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: snapshotData }));
-        setBadge("Repo content loaded from browser snapshot", true);
-        p = Promise.resolve(snapshotData);
-    } else {
-        p = fetch(URL, { cache: "no-store" })
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error("no content-data.json");
-                }
-
-                return response.json();
-            })
-            .then(function (data) {
-                window.KnowAngadRepoData = data;
-                document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
-                setBadge("Repo content loaded", true);
-                return data;
-            })
-            .catch(function () {
-                window.KnowAngadRepoData = null;
-                document.dispatchEvent(new CustomEvent("know-angad:repo-load-failed"));
-                setBadge("Repo content unavailable", false);
-                return null;
-            });
+    function publishRepoData(data, sourceLabel) {
+        window.KnowAngadRepoData = data;
+        document.dispatchEvent(new CustomEvent("know-angad:repo-loaded", { detail: data }));
+        setBadge(sourceLabel, true);
+        return data;
     }
 
-    window.KnowAngadRepoPromise = p;
+    function publishRepoFailure() {
+        window.KnowAngadRepoData = null;
+        document.dispatchEvent(new CustomEvent("know-angad:repo-load-failed"));
+        setBadge("Repo content unavailable", false);
+        return null;
+    }
+
+    window.KnowAngadRepoPromise = fetch(URL, { cache: "no-store" })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("no content-data.json");
+            }
+
+            return response.json();
+        })
+        .then(function (data) {
+            return publishRepoData(data, "Repo content loaded");
+        })
+        .catch(function () {
+            if (snapshotData) {
+                return publishRepoData(snapshotData, "Repo content loaded from browser snapshot");
+            }
+
+            return publishRepoFailure();
+        });
 })();

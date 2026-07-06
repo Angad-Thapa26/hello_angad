@@ -106,28 +106,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     }
 
+    function collectCustomItems(allItems, baseItems) {
+        var baseIds = {};
+
+        (Array.isArray(baseItems) ? baseItems : []).forEach(function (item) {
+            if (item && item.id) {
+                baseIds[item.id] = true;
+            }
+        });
+
+        return (Array.isArray(allItems) ? allItems : []).filter(function (item) {
+            return item && (!item.id || !baseIds[item.id] || item.source === "custom");
+        });
+    }
+
     function buildExportPayload() {
+        var allCertificates = window.KnowAngadCertificates.getAllCertificates();
+        var allGalleryItems = window.KnowAngadContent.getAllGalleryItems();
+        var allBlogPosts = window.KnowAngadContent.getAllBlogPosts();
+        var allCtfChallenges = window.KnowAngadContent.getAllCtfChallenges();
+
         return {
             exportedAt: new Date().toISOString(),
             certificates: {
                 base: window.KnowAngadCertificates.baseCertificates,
-                custom: window.KnowAngadCertificates.getCustomCertificates(),
-                all: window.KnowAngadCertificates.getAllCertificates()
+                custom: collectCustomItems(allCertificates, window.KnowAngadCertificates.baseCertificates),
+                all: allCertificates
             },
             gallery: {
                 base: window.KnowAngadContent.baseGalleryItems,
-                custom: window.KnowAngadContent.getCustomGalleryItems(),
-                all: window.KnowAngadContent.getAllGalleryItems()
+                custom: collectCustomItems(allGalleryItems, window.KnowAngadContent.baseGalleryItems),
+                all: allGalleryItems
             },
             blog: {
                 base: window.KnowAngadContent.baseBlogPosts,
-                custom: window.KnowAngadContent.getCustomBlogPosts(),
-                all: window.KnowAngadContent.getAllBlogPosts()
+                custom: collectCustomItems(allBlogPosts, window.KnowAngadContent.baseBlogPosts),
+                all: allBlogPosts
             },
             ctf: {
                 base: window.KnowAngadContent.baseCtfChallenges,
-                custom: window.KnowAngadContent.getCustomCtfChallenges(),
-                all: window.KnowAngadContent.getAllCtfChallenges(),
+                custom: collectCustomItems(allCtfChallenges, window.KnowAngadContent.baseCtfChallenges),
+                all: allCtfChallenges,
                 solved: window.KnowAngadContent.getSolvedCtfChallenges()
             }
         };
@@ -272,7 +291,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (certificates.length === 0) {
             var empty = document.createElement("p");
             empty.className = "admin-empty-state";
-                meta.textContent = [item.category, item.link].filter(Boolean).join(" - ") + (item.featured ? " - Featured" : "");
+            empty.textContent = "No custom certificates saved yet.";
             listEl.appendChild(empty);
             return;
         }
@@ -333,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (items.length === 0) {
             var empty = document.createElement("p");
             empty.className = "admin-empty-state";
-                meta.textContent = [item.date, "blog"].filter(Boolean).join(" - ") + (item.featured ? " - Featured" : "");
+            empty.textContent = "No custom gallery images saved yet.";
             galleryListEl.appendChild(empty);
             return;
         }
@@ -395,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (items.length === 0) {
             var empty = document.createElement("p");
             empty.className = "admin-empty-state";
-                meta.textContent = [challenge.difficulty, challenge.resourceUrl].filter(Boolean).join(" - ") + (challenge.featured ? " - Featured" : "");
+            empty.textContent = "No custom blog posts saved yet.";
             blogListEl.appendChild(empty);
             return;
         }
@@ -464,8 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (exportButton) {
         exportButton.addEventListener("click", function () {
             var exportPayload = buildExportPayload();
-            var timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-            downloadJson("know-angad-content-" + timestamp + ".json", exportPayload);
+            downloadJson("content-data.json", exportPayload);
             saveRepoSnapshot();
             setCertificateStatus("Content exported as JSON.", false);
         });

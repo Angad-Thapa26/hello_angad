@@ -150,10 +150,6 @@
         return sha3_256(String(flag));
     }
 
-    function cloneList(items) {
-        return Array.isArray(items) ? items.slice() : [];
-    }
-
     function applyBaseDefaults(items, defaults) {
         var defaultsById = {};
         cloneList(defaults).forEach(function (defaultItem) {
@@ -182,11 +178,35 @@
         };
     }
 
+    function mergeItemsById(primaryList, secondaryList) {
+        var merged = [];
+        var seen = {};
+
+        (Array.isArray(primaryList) ? primaryList : []).forEach(function (item) {
+            if (!item || !item.id || seen[item.id]) {
+                return;
+            }
+
+            seen[item.id] = true;
+            merged.push(item);
+        });
+
+        (Array.isArray(secondaryList) ? secondaryList : []).forEach(function (item) {
+            if (!item || !item.id || seen[item.id]) {
+                return;
+            }
+
+            seen[item.id] = true;
+            merged.unshift(item);
+        });
+
+        return merged;
+    }
+
     function setRepoContent(data, source) {
         repoContentSource = source || repoContentSource || "fetch";
         repoContent = {
             exportedAt: data && data.exportedAt ? data.exportedAt : null,
-            certificates: normalizeRepoSection(data && data.certificates, baseCertificates),
             gallery: normalizeRepoSection(data && data.gallery, baseGalleryItems),
             blog: normalizeRepoSection(data && data.blog, baseBlogPosts),
             ctf: normalizeRepoSection(data && data.ctf, baseCtfChallenges)
@@ -200,7 +220,7 @@
 
         if (window.KnowAngadRepoPromise && typeof window.KnowAngadRepoPromise.then === "function") {
             repoContentPromise = window.KnowAngadRepoPromise.then(function (data) {
-                if (data && !repoContent) {
+                if (data) {
                     setRepoContent(data, "loader");
                 }
 
@@ -324,10 +344,10 @@
 
     function getAllGalleryItems() {
         if (repoContent && repoContent.gallery) {
-            return cloneList(repoContent.gallery.all);
+            return mergeItemsById(repoContent.gallery.all, getCustomGalleryItems());
         }
 
-        return getCustomGalleryItems().concat(baseGalleryItems);
+        return mergeItemsById(baseGalleryItems, getCustomGalleryItems());
     }
 
     function getFeaturedGalleryItems() {
@@ -338,10 +358,10 @@
 
     function getAllBlogPosts() {
         if (repoContent && repoContent.blog) {
-            return cloneList(repoContent.blog.all);
+            return mergeItemsById(repoContent.blog.all, getCustomBlogPosts());
         }
 
-        return getCustomBlogPosts().concat(baseBlogPosts);
+        return mergeItemsById(baseBlogPosts, getCustomBlogPosts());
     }
 
     function getFeaturedBlogPosts() {
@@ -352,10 +372,10 @@
 
     function getAllCtfChallenges() {
         if (repoContent && repoContent.ctf) {
-            return cloneList(repoContent.ctf.all);
+            return mergeItemsById(repoContent.ctf.all, getCustomCtfChallenges());
         }
 
-        return baseCtfChallenges.concat(getCustomCtfChallenges());
+        return mergeItemsById(baseCtfChallenges, getCustomCtfChallenges());
     }
 
     function getFeaturedCtfChallenges() {
