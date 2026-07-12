@@ -5,18 +5,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Tools & Games</title>
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated grid background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: 0;
+    animation: gridMove 20s linear infinite;
+}
+
+/* Scanline effect */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 0, 0.05) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes gridMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 40px;
+    }
+}
+
+/* Glitch particles */
+.particle {
+    position: absolute;
+    background: #0f0;
+    width: 2px;
+    height: 2px;
+    animation: particleFloat 3s ease-in-out infinite;
+    z-index: 2;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+    z-index: 3;
+    margin-bottom: 30px;
+    text-align: center;
+    animation: titleFlicker 3s infinite;
+}
+
+@keyframes titleFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 30px #0f0;
+    }
+    20%, 24%, 55% {
+        opacity: 0.7;
+        text-shadow: none;
+    }
+}
+
+p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    z-index: 3;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 30px;
+    z-index: 3;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-btn {
+    background-color: #000;
+    color: #0f0;
+    border: 2px solid #0f0;
+    padding: 20px 40px;
+    font-size: 1.5rem;
+    font-family: 'Courier New', monospace;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.cta-btn:hover::before {
+    left: 100%;
+}
+
+.cta-btn:hover {
+    background-color: #0f0;
+    color: #000;
+    box-shadow: 0 0 20px #0f0, 0 0 30px #0f0;
+    transform: translateY(-5px);
+}
+
+.cta-secondary {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+}
+
+/* CRT scanline effect container */
+body > * {
+    position: relative;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: 5px;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+    
+    .hero-cta {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+</style>
 </head>
 <body>
-    <h1>Tools & Games</h1>
-    <p>Welcome to the Tools & Games page! Here you can find various tools and games that I have developed or worked on.</p>
-    <ul>
-        <li><a href="coin-flip.html">flip the coin</a></li>
-        <li><a href="xoxo.html">XOXOXOXOXOXO</a></li>
-        
-    </ul>
+    <h1>SYSTEM ACCESS GRANTED</h1>
+    <p>Welcome to the Tools & Games terminal. Here you can find various applications and games that I have developed or worked on.</p>
+    
     <div class="hero-cta">
         <a href="coin-flip.html" class="cta-btn cta-secondary">flip the coin</a>
         <a href="xoxo.html" class="cta-btn cta-secondary">XOXOXOXOXOXO</a>
     </div>
+
+    <script>
+        // Create random particles for background effect
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                particle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+    </script>
 </body>
 </html>
