@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Tic-Tac-Toe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-shadow: 0 0 5px #0f0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: flicker 2s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 20px #0f0;
+            }
+            20%, 24%, 55% {
+                opacity: 0.5;
+                text-shadow: none;
+            }
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .status {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            min-height: 30px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            border: 2px solid #0f0;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .cell {
+            background-color: #000;
+            border: 1px solid #0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cell:hover {
+            background-color: #0f0;
+            color: #000;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .cell.x {
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+        }
+
+        .cell.o {
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+        }
+
+        .cell.winning {
+            background-color: #0f0;
+            color: #000;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px #0f0;
+            }
+            50% {
+                box-shadow: 0 0 20px #0f0, 0 0 30px #0f0;
+            }
+        }
+
+        .controls {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #000;
+            color: #0f0;
+            border: 2px solid #0f0;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #0f0;
+            color: #000;
+            box-shadow: 0 0 20px #0f0;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 0, 0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .glitch-text {
+            position: relative;
+        }
+
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 red;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 blue;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(14px, 9999px, 123px, 0); }
+            20% { clip: rect(89px, 9999px, 96px, 0); }
+            40% { clip: rect(34px, 9999px, 21px, 0); }
+            60% { clip: rect(67px, 9999px, 8px, 0); }
+            80% { clip: rect(12px, 9999px, 65px, 0); }
+            100% { clip: rect(78px, 9999px, 43px, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 98px, 0); }
+            20% { clip: rect(12px, 9999px, 45px, 0); }
+            40% { clip: rect(89px, 9999px, 23px, 0); }
+            60% { clip: rect(34px, 9999px, 76px, 0); }
+            80% { clip: rect(56px, 9999px, 12px, 0); }
+            100% { clip: rect(23px, 9999px, 87px, 0); }
+        }
+
+        .terminal-cursor::after {
+            content: '█';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @media (max-width: 400px) {
+            .board {
+                grid-template-columns: repeat(3, 80px);
+                grid-template-rows: repeat(3, 80px);
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+    <h1 class="glitch-text" data-text="HACKER TIC-TAC-TOE">HACKER TIC-TAC-TOE</h1>
+    
+    <div class="game-container">
+        <div class="status terminal-cursor" id="status">INITIALIZING GAME...</div>
+        
+        <div class="board" id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="restartBtn">INITIALIZE SYSTEM</button>
+        </div>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const statusText = document.getElementById('status');
+        const restartBtn = document.getElementById('restartBtn');
+        
+        let currentPlayer = 'X';
+        let gameState = ['', '', '', '', '', '', '', '', ''];
+        let gameActive = true;
+        // Track move order for each player to know which piece to remove
+        let playerMoves = {
+            'X': [],
+            'O': []
+        };
+        
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+        
+        const messages = {
+            playerTurn: (player) => `PLAYER ${player} - AWAITING INPUT`,
+            winner: (player) => `SYSTEM BREACHED - PLAYER ${player} WINS!`,
+            draw: () => `SYSTEM STALEMATE - NO DATA EXTRACTED`,
+            removingOld: (player, cell) => `DELETING OLD DATA - CELL ${cell}`,
+            initializing: 'INITIALIZING GAME...',
+            processing: 'PROCESSING DATA...',
+            accessing: 'ACCESSING MAINFRAME...'
+        };
+        
+        function updateStatus(message) {
+            statusText.textContent = message;
+        }
+        
+        function removeOldestMove(player, cellIndex) {
+            const oldestIndex = playerMoves[player][0];
+            gameState[oldestIndex] = '';
+            cells[oldestIndex].textContent = '';
+            cells[oldestIndex].classList.remove('x', 'o');
+            
+            // Update move queue - remove the oldest
+            playerMoves[player] = playerMoves[player].slice(1);
+            
+            return oldestIndex;
+        }
+        
+        function handleCellClick(e) {
+            const cell = e.target;
+            const index = parseInt(cell.getAttribute('data-index'));
+            
+            if (gameState[index] !== '' || !gameActive) {
+                return;
+            }
+            
+            updateStatus(messages.processing);
+            
+            // If this player already has 3 pieces, remove the oldest one
+            if (playerMoves[currentPlayer].length >= 3) {
+                const removedIndex = removeOldestMove(currentPlayer);
+                updateStatus(messages.removingOld(currentPlayer, removedIndex));
+                setTimeout(() => {
+                    makeMove(index);
+                }, 300);
+            } else {
+                makeMove(index);
+            }
+        }
+        
+        function makeMove(index) {
+            const cell = cells[index];
+            gameState[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+            cell.classList.add(currentPlayer.toLowerCase());
+            
+            // Track this move
+            playerMoves[currentPlayer].push(index);
+            
+            if (checkWin()) {
+            updateStatus(messages.winner(currentPlayer));
+                return;
+            }
+            
+            if (checkDraw()) {
+                gameActive = false;
+                statusText.textContent = messages.draw;
+                return;
+            }
+            
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusText.textContent = messages.playerTurn(currentPlayer);
+        }
+        
+        function checkWin() {
+            let roundWon = false;
+            let winningCombo = [];
+            
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                    roundWon = true;
+                    winningCombo = [a, b, c];
+                    break;
+                }
+            }
+            
+            if (roundWon) {
+                winningCombo.forEach(index => {
+                    cells[index].classList.add('winning');
+                });
+                return true;
+            }
+            
+            return false;
+        }
+        
+        function checkDraw() {
+            return !gameState.includes('');
+        }
+        
+        function restartGame() {
+            statusText.textContent = messages.initializing;
+            
+            setTimeout(() => {
+                currentPlayer = 'X';
+                gameState = ['', '', '', '', '', '', '', '', ''];
+                gameActive = true;
+                playerMoves = {
+                    'X': [],
+                    'O': []
+                };
+                
+                cells.forEach(cell => {
+                    cell.textContent = '';
+                    cell.classList.remove('x', 'o', 'winning');
+                });
+                
+                statusText.textContent = messages.playerTurn(currentPlayer);
+            }, 500);
+        }
+        
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        restartBtn.addEventListener('click', restartGame);
+        
+        // Initial setup
+        setTimeout(() => {
+                statusText.textContent = messages.playerTurn(currentPlayer);
+        }, 1000);
+    </script>
+</body>
+</html>
